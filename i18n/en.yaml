@@ -1,0 +1,8 @@
+- id: copyright
+  translation: "© 2025 Vinicius Dufloth"
+- id: poweredBy
+  translation: "Powered by Hugo and customized Hextra theme"
+- id: bestPosts
+  translation: "Best:"
+- id: latestPosts
+  translation: "Latest:"

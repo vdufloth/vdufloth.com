@@ -1,0 +1,112 @@
+baseURL: https://vdufloth.com/
+title: vdufloth.com
+# copyright: copyright esta nos i18n
+theme: ["hextra"]
+
+#DefaultContentLanguage: "en" # default
+
+languages:
+  pt:
+    languageName: "🇧🇷🇵🇹 Português"
+    weight: 1
+    taxonomies:
+      category: categorias
+      tag: tags
+    menu:
+      main:
+        #- name: Blog
+        #  pageRef: /blog
+        #  weight: 1
+        - name: Sobre Mim
+          url: /pt/about
+          weight: 2
+        - name: Procurar
+          params:
+            type: search
+          weight: 3
+        - name: GitHub
+          url: "https://github.com/vdufloth"
+          weight: 4
+          params:
+            icon: github
+        - name: LinkedIn
+          url: "https://br.linkedin.com/in/vinicius-dufloth"
+          weight: 5
+          params:
+            icon: linkedin
+  en:
+    languageName: "🇺🇸🇬🇧 English"
+    weight: 2
+    taxonomies:
+      category: categories
+      tag: tags
+    menu:
+      main:
+        #- name: Blog
+        #  pageRef: /blog
+        #  weight: 1
+        - name: About
+          url: /about
+          weight: 2
+        - name: Search
+          params:
+            type: search
+          weight: 3
+        - name: GitHub
+          url: "https://github.com/vdufloth"
+          weight: 4
+          params:
+            icon: github
+        - name: LinkedIn
+          url: "https://br.linkedin.com/in/vinicius-dufloth"
+          weight: 5
+          params:
+            icon: linkedin
+
+params:
+  enableInlineShortcodes: true
+  navbar:
+    displayTitle: false
+    displayLogo: true
+    logo:
+      path: images/dufloth-logo.svg
+      dark: images/dufloth-logo-dark.svg
+      width: 100
+      height: 50
+  
+  footer:
+    displayPoweredBy: false
+    displayCopyright: true
+  
+  theme:
+    # light | dark | system
+    default: system
+    displayToggle: true
+  
+  page:
+    # full (100%), wide (90rem), normal (1280px)
+    width: normal
+
+services:
+  googleAnalytics:
+    ID: G-PH6441QZ4F
+
+markup:
+  highlight:
+    # Styles: https://gohugo.io/quick-reference/syntax-highlighting-styles/
+    style: 'catpuccin-mocha'
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+      markup:
+    extensions:
+      passthrough:
+        delimiters:
+          block: [['\[', '\]'], ['$$', '$$']]
+          inline: [['\(', '\)']]
+        enable: true
+
+minify:
+  disableXML: true
+  minifyOutput: true
