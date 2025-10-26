@@ -3,7 +3,7 @@ title: vdufloth.com
 # copyright: copyright esta nos i18n
 theme: ["hextra"]
 
-#DefaultContentLanguage: "en" # default
+DefaultContentLanguage: "pt" # default is en
 
 languages:
   pt:
