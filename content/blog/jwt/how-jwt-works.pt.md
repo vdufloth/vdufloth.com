@@ -84,7 +84,7 @@ Após termos um *header* e um *payload* podemos realizar o restante das ações 
 
 Fica visual de entender usando o site da [jwt.io](https://www.jwt.io/) como exemplo:
 
-![Captura de tela mostrando o processo de assinatura de um token no site jwt.io, destacando o Header, Payload e a Assinatura](./signing-jwt-io-pt.png)
+![Captura de tela mostrando o processo de assinatura de um token no site jwt.io, destacando o Header, Payload e a Assinatura](/images/blog/jwt/signing-jwt-io-pt.png)
 
 Com a chave `CHAVE-SECRETA-QUE-SO-FICARIA-NO-SERVIDOR` foi utilizado o algoritmo HS256, que seria um bom uso para aplicações monolito ou serviços distintos em um único servidor. Para sistemas distribuídos, poderia ser usado outro algoritmo como RSA (RS256), por exemplo, para ser verificado através do par público da chave do servidor, diminuindo a chance da chave ser comprometida através de um dos sitemas.
 

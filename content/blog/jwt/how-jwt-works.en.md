@@ -80,7 +80,9 @@ It's like a server handing a user a document that says: *"I attest that user\_12
 
 Once we have a *header* and a *payload*, we can perform the remaining actions to generate the token: encode them in base64Url, concatenate with a dot, generate the signature with the chosen method, and concatenate that with a dot to the rest as well.
 
-It's easier to visualize using the [jwt.io](./signing-jwt-io-en.png) site as an example:
+It's easier to visualize using the [jwt.io](https://www.jwt.io/) site as an example:
+
+![Screen capture showing the signature process of a token on the jwt.io website, showcasing the Header, Payload and Signature](/images/blog/jwt/signing-jwt-io-en.png)
 
 For the key `SECRET-KEY-THAT-STAYS-ONLY-ON-THE-SERVER` the HS256 algorithm was used, wich would be a good option for a monolith application or multiple services on the same machine. For distributed systems, algorithms like RSA (RS256) could be used, being verified via the server's public key pair, decreasing the chance of the key being leaked.
 
