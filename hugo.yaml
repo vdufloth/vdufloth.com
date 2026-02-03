@@ -1,9 +1,13 @@
-baseURL: https://vdufloth.com/
+baseURL: https://www.vdufloth.com/
 title: vdufloth.com
 # copyright: copyright esta nos i18n
-theme: ["hextra"]
+
+module:
+  imports:
+    - path: github.com/imfing/hextra
 
 DefaultContentLanguage: "pt" # default is en
+defaultContentLanguageInSubdir: true
 
 languages:
   pt:
@@ -18,22 +22,31 @@ languages:
         #  pageRef: /blog
         #  weight: 1
         - name: Sobre Mim
-          url: /about
           weight: 2
-        - name: Procurar
-          params:
-            type: search
-          weight: 3
+          url: /pt/about
         - name: GitHub
+          weight: 3
           url: "https://github.com/vdufloth"
-          weight: 4
           params:
             icon: github
         - name: LinkedIn
+          weight: 4
           url: "https://br.linkedin.com/in/vinicius-dufloth"
-          weight: 5
           params:
             icon: linkedin
+        - name: Procurar
+          weight: 5
+          params:
+            type: search
+        - name: Língua
+          weight: 6
+          params:
+            type: language-switch
+        - name: Tema
+          weight: 7
+          params:
+            type: theme-toggle
+            label: false
   en:
     languageName: "🇺🇸🇬🇧 English"
     weight: 2
@@ -48,20 +61,28 @@ languages:
         - name: About
           url: /en/about
           weight: 2
-        - name: Search
-          params:
-            type: search
-          weight: 3
         - name: GitHub
           url: "https://github.com/vdufloth"
-          weight: 4
+          weight: 3
           params:
             icon: github
         - name: LinkedIn
+          weight: 4
           url: "https://br.linkedin.com/in/vinicius-dufloth"
-          weight: 5
           params:
             icon: linkedin
+        - name: Search
+          weight: 5
+          params:
+            type: search
+        - name: Language
+          weight: 6
+          params:
+            type: language-switch
+        - name: Theme
+          weight: 7
+          params:
+            type: theme-toggle
 
 params:
   enableInlineShortcodes: true
