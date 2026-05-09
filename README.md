@@ -2,7 +2,9 @@
 
 Code for the website [vdufloth.com](https://vdufloth.com) made with Hugo and the Hextra theme.
 
-I'm using `asdf` to manage the hugo version. Given the repo already has the `.toolversions` file, simply run `asdf install` (after having installed asdf itself).
+I'm using `mise` to manage tool versions. With mise installed, run `mise install` from the repo root to install the pinned Hugo and Go versions.
+
+To start the dev server: `mise run serve` (executes `hugo serve -D`).
 
 To get the hugo hextra module use `hugo mod get -u`.
 

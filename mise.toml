@@ -1,0 +1,7 @@
+[tools]
+hugo = "0.147.9"
+go = "1.25.6"
+
+[tasks.serve]
+description = "Serve site with drafts"
+run = "hugo serve -D"
