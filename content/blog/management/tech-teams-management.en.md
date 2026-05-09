@@ -51,30 +51,17 @@ This model offered (the illusion of) absolute control: fixed scope delimited in 
 By requiring that all requirements be defined before any code was written, the process forced clients to make all critical decisions at the moment of greatest ignorance about the project and furthest from actual use: the very beginning. The client only saw the product working for the first time at the end of the cycle, months or years after the specifications were agreed upon. The odds that the market had changed or that the client wanted something different when they actually interacted with the software were extremely high. Rearchitecting or altering logical foundations after code delivery became an exponentially expensive process, resulting in projects frequently canceled, blown over budget, and/or delivered with already-obsolete features.
 
 ```mermaid
-graph TD
-    %% Style definitions with purple gradient
-    classDef lila1 fill:#e1bee7,stroke:#ab47bc,stroke-width:2px,color:#4a148c
-    classDef lila2 fill:#ce93d8,stroke:#9c27b0,stroke-width:2px,color:#4a148c
-    classDef lila3 fill:#ba68c8,stroke:#8e24aa,stroke-width:2px,color:#4a148c
-    classDef lila4 fill:#ab47bc,stroke:#7b1fa2,stroke-width:2px,color:#ffffff
-    classDef lila5 fill:#9c27b0,stroke:#6a1b9a,stroke-width:2px,color:#ffffff
-    classDef lila6 fill:#8e24aa,stroke:#4a148c,stroke-width:2px,color:#ffffff
+flowchart LR
+    A[1. Requirements]:::early ==> B[2. Design]:::early ==> C[3. Implementation]:::mid ==> D[4. Testing]:::mid ==> E[5. Deployment]:::late ==> F[6. Maintenance]:::late
 
-    %% Nodes
-    Req[1. Requirements Gathering]:::lila1
-    Des[2. System Design]:::lila2
-    Imp[3. Implementation and Coding]:::lila3
-    Test[4. Testing and Validation]:::lila4
-    Dep[5. Deployment / Delivery]:::lila5
-    Man[6. Maintenance]:::lila6
+    classDef early fill:#ede9fe,stroke:#a78bfa,stroke-width:2px,color:#1e1b4b
+    classDef mid fill:#c4b5fd,stroke:#8b5cf6,stroke-width:2px,color:#1e1b4b
+    classDef late fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#ffffff
 
-    %% Sequential Flow
-    Req --> Des
-    Des --> Imp
-    Imp --> Test
-    Test --> Dep
-    Dep --> Man
+    linkStyle default stroke:#8b5cf6,stroke-width:2px
 ```
+
+> One direction only — no systemic provision for returning to a previous stage.
 
 ## Managing uncertainty: The rise of Agile
 
@@ -183,41 +170,41 @@ In contrast, slicing that monolith into three smaller, independent tasks ensures
 The true evolution of technology management is not the replacement of one closed methodology by another, but the progressive understanding that empirical tools — like Sprints for creative momentum and Kanban for bottleneck clearance — create a framework for dealing with the essential complexity of software.
 
 ```mermaid
-flowchart LR
-    %% Style definitions
-    classDef backlog fill:#fcf3cf,stroke:#f39c12,stroke-width:2px,color:#7e5109
-    classDef meeting fill:#ebdef0,stroke:#8e44ad,stroke-width:2px,color:#512e5f
-    classDef kanban fill:#d6eaf8,stroke:#2980b9,stroke-width:2px,color:#154360
-    classDef done fill:#d5f5e3,stroke:#27ae60,stroke-width:2px,color:#145a32
+%%{init: {'flowchart':{'nodeSpacing':25,'rankSpacing':35,'padding':6},'themeVariables':{'fontSize':'11px'}}}%%
+flowchart TB
+    classDef store fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+    classDef ceremony fill:#ede9fe,stroke:#7c3aed,stroke-width:1.5px,color:#1e1b4b
+    classDef workitem fill:#c4b5fd,stroke:#8b5cf6,stroke-width:1.5px,color:#1e1b4b
+    classDef wiplimit fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+    classDef outcome fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
 
-    %% Backlog and Planning
-    PB[(Product\nBacklog)]:::backlog
-    Plan((Sprint\nPlanning)):::meeting
+    PB[("Product<br/>Backlog")]:::store
+    Plan(("Sprint<br/>Planning")):::ceremony
+    Daily(("Daily<br/>Scrum")):::ceremony
+    Rev(("Sprint<br/>Review")):::ceremony
+    Ret(("Retro")):::ceremony
+    Inc(["Increment"]):::outcome
 
-    PB -->|Pull priorities| Plan
+    PB ==>|Pull| Plan
 
-    %% Execution: Kanban Board
-    subgraph Kanban_Board [Sprint Kanban Board]
+    subgraph Board [" "]
         direction LR
-        TD[To Do\nSprint Backlog]:::kanban --> IP[In Progress\n*WIP Limited*]:::kanban
-        IP --> CR[Code Review / QA]:::kanban
-        CR --> D[Done]:::done
+        TD["To Do"]:::workitem
+        IP["WIP"]:::wiplimit
+        CR["Review"]:::workitem
+        D["Done"]:::outcome
+        TD ==> IP ==> CR ==> D
     end
 
-    Plan -->|Feeds| TD
+    Plan ==> TD
+    Daily <-.-> IP
+    D ==> Rev
+    Rev ==>|Demo| Inc
+    Rev ==> Ret
+    Ret -.->|Process| Plan
+    Ret -.->|Backlog| PB
 
-    %% Ceremonies and Integration
-    Daily((Daily\nScrum)):::meeting
-    IP -.->|Alignment| Daily
-    Daily -.-> IP
-
-    D --> Rev((Sprint\nReview)):::meeting
-    Rev --> Ret((Sprint\nRetrospective)):::meeting
-    Rev --> Delivery{Software\nIncrement}:::done
-
-    %% Continuous Improvement Loop
-    Ret -.->|Process Improvements| Plan
-    Ret -.->|New inputs| PB
+    linkStyle default stroke:#8b5cf6
 ```
 
 ## Practical guide for modern teams

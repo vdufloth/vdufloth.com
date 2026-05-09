@@ -51,30 +51,17 @@ Este modelo oferecia (a ilusão) de controle absoluto: escopo fixo delimitado em
 Ao exigir que todos os requisitos fossem definidos antes de qualquer código ser escrito, o processo forçava o cliente a tomar todas as decisões críticas no momento de maior ignorância sobre o projeto e o mais distante do uso: o seu início. O cliente só via o produto funcionando de fato pela primeira vez no final do ciclo, meses ou anos depois do acordo das especificações. As chances do mercado ter mudado ou do cliente querer algo diferente ao interagir com o software eram altíssimas. Refazer a arquitetura ou alterar as fundações lógicas após a entrega do código se tornava um processo exponencialmente caro, resultando em projetos frequentemente cancelados, estourados em orçamento e/ou entregues com funcionalidades já obsoletas.
 
 ```mermaid
-graph TD
-    %% Definição de estilos com gradiente de roxo
-    classDef lila1 fill:#e1bee7,stroke:#ab47bc,stroke-width:2px,color:#4a148c
-    classDef lila2 fill:#ce93d8,stroke:#9c27b0,stroke-width:2px,color:#4a148c
-    classDef lila3 fill:#ba68c8,stroke:#8e24aa,stroke-width:2px,color:#4a148c
-    classDef lila4 fill:#ab47bc,stroke:#7b1fa2,stroke-width:2px,color:#ffffff
-    classDef lila5 fill:#9c27b0,stroke:#6a1b9a,stroke-width:2px,color:#ffffff
-    classDef lila6 fill:#8e24aa,stroke:#4a148c,stroke-width:2px,color:#ffffff
+flowchart LR
+    A[1. Requisitos]:::early ==> B[2. Design]:::early ==> C[3. Implementação]:::mid ==> D[4. Testes]:::mid ==> E[5. Implantação]:::late ==> F[6. Manutenção]:::late
 
-    %% Nós
-    Req[1. Levantamento de Requisitos]:::lila1
-    Des[2. Design do Sistema]:::lila2
-    Imp[3. Implementação e Codificação]:::lila3
-    Test[4. Testes e Validação]:::lila4
-    Dep[5. Implantação / Entrega]:::lila5
-    Man[6. Manutenção]:::lila6
+    classDef early fill:#ede9fe,stroke:#a78bfa,stroke-width:2px,color:#1e1b4b
+    classDef mid fill:#c4b5fd,stroke:#8b5cf6,stroke-width:2px,color:#1e1b4b
+    classDef late fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#ffffff
 
-    %% Fluxo Sequencial
-    Req --> Des
-    Des --> Imp
-    Imp --> Test
-    Test --> Dep
-    Dep --> Man
+    linkStyle default stroke:#8b5cf6,stroke-width:2px
 ```
+
+> Uma direção apenas — sem previsão sistêmica de retorno a uma etapa anterior.
 
 ## A gestão de incertezas: A ascensão do Ágil
 
@@ -181,41 +168,41 @@ Em contrapartida, fatiar esse monolito em três tarefas menores e independentes 
 A verdadeira evolução da gestão de tecnologia não é a substituição de uma metodologia fechada por outra, mas o progressivo entendimento de que ferramentas empíricas, como Sprints para fomento criativo e Kanban para saneamento de gargalos, criam um framework para lidar com a complexidade essencial do software.
 
 ```mermaid
-flowchart LR
-    %% Definição de estilos
-    classDef backlog fill:#fcf3cf,stroke:#f39c12,stroke-width:2px,color:#7e5109
-    classDef meeting fill:#ebdef0,stroke:#8e44ad,stroke-width:2px,color:#512e5f
-    classDef kanban fill:#d6eaf8,stroke:#2980b9,stroke-width:2px,color:#154360
-    classDef done fill:#d5f5e3,stroke:#27ae60,stroke-width:2px,color:#145a32
+%%{init: {'flowchart':{'nodeSpacing':25,'rankSpacing':35,'padding':6},'themeVariables':{'fontSize':'11px'}}}%%
+flowchart TB
+    classDef store fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+    classDef ceremony fill:#ede9fe,stroke:#7c3aed,stroke-width:1.5px,color:#1e1b4b
+    classDef workitem fill:#c4b5fd,stroke:#8b5cf6,stroke-width:1.5px,color:#1e1b4b
+    classDef wiplimit fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+    classDef outcome fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
 
-    %% Backlog e Planejamento
-    PB[(Product\nBacklog)]:::backlog
-    Plan((Sprint\nPlanning)):::meeting
-    
-    PB -->|Puxar prioridades| Plan
+    PB[("Product<br/>Backlog")]:::store
+    Plan(("Sprint<br/>Planning")):::ceremony
+    Daily(("Daily<br/>Scrum")):::ceremony
+    Rev(("Sprint<br/>Review")):::ceremony
+    Ret(("Retro")):::ceremony
+    Inc(["Incremento"]):::outcome
 
-    %% Execução: Quadro Kanban
-    subgraph Quadro_Kanban [Quadro Kanban da Sprint]
+    PB ==>|Puxar| Plan
+
+    subgraph Board [" "]
         direction LR
-        TD[To Do\nSprint Backlog]:::kanban --> IP[In Progress\n*WIP Limitado*]:::kanban
-        IP --> CR[Code Review / QA]:::kanban
-        CR --> D[Done]:::done
+        TD["A Fazer"]:::workitem
+        IP["WIP"]:::wiplimit
+        CR["Review"]:::workitem
+        D["Concluído"]:::outcome
+        TD ==> IP ==> CR ==> D
     end
 
-    Plan -->|Abastece| TD
+    Plan ==> TD
+    Daily <-.-> IP
+    D ==> Rev
+    Rev ==>|Demo| Inc
+    Rev ==> Ret
+    Ret -.->|Processo| Plan
+    Ret -.->|Backlog| PB
 
-    %% Cerimônias e Integração
-    Daily((Daily\nScrum)):::meeting
-    IP -.->|Alinhamento| Daily
-    Daily -.-> IP
-
-    D --> Rev((Sprint\nReview)):::meeting
-    Rev --> Ret((Sprint\nRetrospective)):::meeting
-    Rev --> Entrega{Incremento\nde Software}:::done
-
-    %% Loop de Melhoria Contínua
-    Ret -.->|Melhorias de Processo| Plan
-    Ret -.->|Novos inputs| PB
+    linkStyle default stroke:#8b5cf6
 ```
 
 ## Guia prático para equipes modernas

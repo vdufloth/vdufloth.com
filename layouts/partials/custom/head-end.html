@@ -1,3 +1,66 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  article main .content {
+    font-family: 'IBM Plex Serif', Charter, Georgia, "Times New Roman", serif;
+    line-height: 1.65;
+    color: #334155;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  html.dark article main .content { color: #cbd5e1; }
+
+  article main > h1 {
+    font-family: 'IBM Plex Serif', Charter, Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  article main .content h1,
+  article main .content h2,
+  article main .content h3,
+  article main .content h4,
+  article main .content h5,
+  article main .content h6 {
+    font-family: 'IBM Plex Serif', Charter, Georgia, serif;
+    font-weight: 600;
+  }
+
+  article main .content h2 {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    background-image: linear-gradient(to right, transparent 0, #cbd5e1 12%, #cbd5e1 88%, transparent 100%);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: top;
+  }
+  html.dark article main .content h2 {
+    background-image: linear-gradient(to right, transparent 0, #334155 12%, #334155 88%, transparent 100%);
+  }
+
+  article main .content code,
+  article main .content pre,
+  article main .content pre code,
+  article main .content kbd,
+  article main .content samp {
+    font-family: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  article main .content time,
+  article main .content .date,
+  article main .content .meta {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: #64748b;
+  }
+  html.dark article main .content time,
+  html.dark article main .content .date,
+  html.dark article main .content .meta { color: #94a3b8; }
+</style>
