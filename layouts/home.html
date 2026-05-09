@@ -2,69 +2,91 @@
   <div class='hx:mx-auto hx:flex hextra-max-page-width'>
     {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
     {{ partial "toc.html" . }}
-    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
-      <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
-        </br>
-        </br>
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-12 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="home-mono hx:w-full hx:min-w-0 hx:max-w-[640px] hx:px-6 hx:pt-12 hx:md:pt-16 hx:md:px-8">
         {{ if .Title }}
-          <h1 class="hx:text-center hx:mt-2 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">
-            {{ .Title }}
-          </h1>
+          <h1>{{ .Title }}</h1>
         {{ end }}
-        </br>
-        </br>
-        <div class="content hx:text-center">
+        <div class="bio">
           {{ .Content }}
         </div>
-        <!-- SEÇÃO MELHORES BLOGS -->
-        <!-- <div class="hx:mt-12">
-          <h2 class="hx:text-2xl hx:font-bold hx:text-slate-900 hx:dark:text-slate-100 hx:mb-6">📚 {{ i18n "bestPosts" }}</h2>
-          <div class="hx:grid hx:grid-cols-1 hx:md:grid-cols-2 hx:lg:grid-cols-3 hx:gap-4">
-            {{ range first 6 (where (where .Site.RegularPages "Section" "blog") "Params.tags" "intersect" (slice "best")) }}
-            <a href="{{ .Permalink }}" class="hx:group hx:block hx:p-4 hx:rounded-lg hx:border hx:border-slate-200 hx:hover:border-slate-300 hx:transition-all hx:duration-200 hx:dark:border-slate-700 hx:dark:hover:border-slate-600">
-              <div class="hx:flex hx:items-start hx:space-x-3">
-                <div class="hx:flex-shrink-0 hx:w-2 hx:h-2 hx:bg-blue-500 hx:rounded-full hx:mt-2"></div>
-                <div class="hx:flex-1 hx:min-w-0">
-                  <h3 class="hx:text-sm hx:font-semibold hx:text-slate-900 hx:dark:text-slate-100 hx:group-hover:text-blue-600 hx:dark:group-hover:text-blue-400 hx:transition-colors">
-                    {{ .Title }}
-                  </h3>
-                  {{ if .Summary }}
-                  <p class="hx:mt-1 hx:text-xs hx:text-slate-600 hx:dark:text-slate-400 hx:line-clamp-2">
-                    {{ .Summary }}
-                  </p>
-                  {{ end }}
-                </div>
-              </div>
-            </a>
+        <section class="posts-section">
+          <h2>{{ i18n "latestPosts" }}</h2>
+          <ul>
+            {{ range first 20 (where .Site.RegularPages "Section" "blog") }}
+              <li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time><a href="{{ .Permalink }}">{{ .Title }}</a></li>
             {{ end }}
-          </div>
-        </div> -->
-        <!-- FIM SEÇÃO MELHORES BLOGS -->
-        <!-- SEÇÃO ÚLTIMOS POSTS -->
-         <!-- <div class="hx:mt-12">
-          <h2 class="hx:text-2xl hx:font-bold hx:text-slate-900 hx:dark:text-slate-100 hx:mb-6">🕒 {{ i18n "latestPosts" }}</h2>
-          <div class="hx:grid hx:grid-cols-1 hx:md:grid-cols-2 hx:lg:grid-cols-3 hx:gap-4">
-            {{ range first 6 (where .Site.RegularPages "Section" "blog") }}
-            <a href="{{ .Permalink }}" class="hx:group hx:block hx:p-4 hx:rounded-lg hx:border hx:border-slate-200 hx:hover:border-slate-300 hx:transition-all hx:duration-200 hx:dark:border-slate-700 hx:dark:hover:border-slate-600">
-              <div class="hx:flex hx:items-start hx:space-x-3">
-                <div class="hx:flex-shrink-0 hx:w-2 hx:h-2 hx:bg-blue-500 hx:rounded-full hx:mt-2"></div>
-                <div class="hx:flex-1 hx:min-w-0">
-                  <h3 class="hx:text-sm hx:font-semibold hx:text-slate-900 hx:dark:text-slate-100 hx:group-hover:text-blue-600 hx:dark:group-hover:text-blue-400 hx:transition-colors">
-                    {{ .Title }}
-                  </h3>
-                  {{ if .Summary }}
-                  <p class="hx:mt-1 hx:text-xs hx:text-slate-600 hx:dark:text-slate-400 hx:line-clamp-2">
-                    {{ .Summary }}
-                  </p>
-                  {{ end }}
-                </div>
-              </div>
-            </a>
+          </ul>
+        </section>
+        <section class="posts-section">
+          <h2>{{ i18n "bestPosts" }}</h2>
+          <ul>
+            {{ range first 20 (where (where .Site.RegularPages "Section" "blog") "Params.tags" "intersect" (slice "best")) }}
+              <li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time><a href="{{ .Permalink }}">{{ .Title }}</a></li>
             {{ end }}
-          </div>
-        </div> -->
-        <!-- FIM SEÇÃO ÚLTIMOS POSTS -->
+          </ul>
+        </section>
       </main>
     </article>
   </div>
+  <style>
+    .home-mono {
+      font-family: 'IBM Plex Serif', Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: #334155;
+    }
+    html.dark .home-mono { color: #cbd5e1; }
+    .home-mono h1 {
+      font-family: 'IBM Plex Serif', Charter, Georgia, serif;
+      font-weight: 600;
+      font-size: 29px;
+      letter-spacing: -0.005em;
+      margin: 0 0 28px;
+      text-align: center;
+    }
+    .home-mono .bio { margin-bottom: 40px; }
+    .home-mono .bio p { margin: 0 0 1em; }
+    .home-mono .bio a,
+    .home-mono .posts-section a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+    .home-mono .bio a:hover,
+    .home-mono .posts-section a:hover { text-decoration-thickness: 2px; }
+    .home-mono .posts-section {
+      margin-top: 40px;
+      padding-top: 40px;
+      background-image: linear-gradient(to right, transparent 0, #cbd5e1 12%, #cbd5e1 88%, transparent 100%);
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: top;
+    }
+    html.dark .home-mono .posts-section {
+      background-image: linear-gradient(to right, transparent 0, #334155 12%, #334155 88%, transparent 100%);
+    }
+    .home-mono .posts-section h2 {
+      font-family: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #64748b;
+      margin: 0 0 16px;
+    }
+    html.dark .home-mono .posts-section h2 { color: #94a3b8; }
+    .home-mono .posts-section ul { list-style: none; margin: 0; padding: 0; }
+    .home-mono .posts-section li { padding: 4px 0; }
+    .home-mono .posts-section time {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      color: #64748b;
+      margin-right: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+    html.dark .home-mono .posts-section time { color: #94a3b8; }
+  </style>
 {{ end }}

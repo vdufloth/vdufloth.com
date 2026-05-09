@@ -3,9 +3,7 @@ draft: false
 title: 'Vinicius Dufloth'
 ---
 
-![](/images/vinis-photo-profile.jpg)
-
-Sou sócio executivo em uma empresa de software B2B voltada para automação logística, com mais de 9 anos de experiência entre tecnologia, produto e finanças.
+Sou sócio executivo em uma empresa de software B2B voltada para automação logística, com +10 anos de experiência entre tecnologia, produto e finanças.
 
 Atuo na interseção entre engenharia de software, gestão estratégica e transformação digital — desde arquitetura escalável de sistemas até a liderança de times multidisciplinares. 
 

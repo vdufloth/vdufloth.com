@@ -3,9 +3,7 @@ draft: false
 title: 'Vinicius Dufloth'
 ---
 
-![](/images/vinis-photo-profile.jpg)
-
-I'm an executive partner at a B2B software company focused on logistics automation, with over 9 years of experience across technology, product, and finance.
+I'm an executive partner at a B2B software company focused on logistics automation, with 10+ years of experience across technology, product, and finance.
 
 I work at the intersection of software engineering, strategic management, and digital transformation — from scalable system architecture to leading multidisciplinary teams.
 
