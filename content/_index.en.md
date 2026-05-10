@@ -1,10 +1,7 @@
 ---
 draft: false
-title: 'Vinicius Dufloth'
+title: 'vdufloth.com'
+subtitle: 'by Vinicius Dufloth'
 ---
 
-I'm an executive partner at a B2B software company focused on logistics automation, with 10+ years of experience across technology, product, and finance.
-
-I work at the intersection of software engineering, strategic management, and digital transformation — from scalable system architecture to leading multidisciplinary teams.
-
-I have a continuous interest in initiatives that use technology to solve real problems with scale and impact — whether leading complex technical operations or collaborating with entrepreneurs in building robust and sustainable digital products. More on: [About me]({{<relref "about.md" >}}).
+This is where I write as I learn — notes and reflections from a decade in tech. Architecture, engineering, product, management, and the messy problem-solving where they meet. Occasionally: life, the universe, and everything.

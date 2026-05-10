@@ -1,10 +1,7 @@
 ---
 draft: false
-title: 'Vinicius Dufloth'
+title: 'vdufloth.com'
+subtitle: 'por Vinicius Dufloth'
 ---
 
-Sou sócio executivo em uma empresa de software B2B voltada para automação logística, com +10 anos de experiência entre tecnologia, produto e finanças.
-
-Atuo na interseção entre engenharia de software, gestão estratégica e transformação digital — desde arquitetura escalável de sistemas até a liderança de times multidisciplinares. 
-
-Tenho interesse contínuo em iniciativas que usem tecnologia para resolver problemas reais com escala e impacto — seja liderando operações técnicas complexas ou colaborando com empreendedores na estruturação de produtos digitais robustos e sustentáveis. Mais em: [Sobre mim]({{<relref "about.md" >}}).
+Aqui escrevo enquanto aprendo — notas e reflexões de uma década em tecnologia. Arquitetura, engenharia, produto, gestão e a bagunça que é resolver problemas no meio disso tudo. Ocasionalmente: a vida, o universo e tudo mais.
