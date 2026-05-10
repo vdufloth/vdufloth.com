@@ -5,7 +5,7 @@
     <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-12 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="home-mono hx:w-full hx:min-w-0 hx:max-w-[640px] hx:px-6 hx:pt-12 hx:md:pt-16 hx:md:px-8">
         {{ if .Title }}
-          <h1>{{ .Title }}</h1>
+          <h1><span class="typewriter" aria-label="{{ .Title }}">{{ .Title }}</span></h1>
         {{ end }}
         {{ with .Params.subtitle }}
           <p class="subtitle">{{ . }}</p>
@@ -47,6 +47,31 @@
       letter-spacing: -0.005em;
       margin: 0 0 6px;
       text-align: center;
+    }
+    .home-mono h1 .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: bottom;
+      width: 12ch;
+      border-right: 0.08em solid currentColor;
+      animation:
+        tw-type 1.4s steps(12, end) 0.2s both,
+        tw-cursor-off 0s linear 1.65s forwards;
+    }
+    @keyframes tw-type {
+      from { width: 0; }
+      to { width: 12ch; }
+    }
+    @keyframes tw-cursor-off {
+      to { border-right-color: transparent; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .home-mono h1 .typewriter {
+        animation: none;
+        width: 12ch;
+        border-right-color: transparent;
+      }
     }
     .home-mono .subtitle {
       font-family: 'IBM Plex Serif', Charter, Georgia, serif;
