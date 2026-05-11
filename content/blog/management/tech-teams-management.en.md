@@ -50,17 +50,6 @@ This model offered (the illusion of) absolute control: fixed scope delimited in 
 
 By requiring that all requirements be defined before any code was written, the process forced clients to make all critical decisions at the moment of greatest ignorance about the project and furthest from actual use: the very beginning. The client only saw the product working for the first time at the end of the cycle, months or years after the specifications were agreed upon. The odds that the market had changed or that the client wanted something different when they actually interacted with the software were extremely high. Rearchitecting or altering logical foundations after code delivery became an exponentially expensive process, resulting in projects frequently canceled, blown over budget, and/or delivered with already-obsolete features.
 
-```mermaid
-flowchart LR
-    A[1. Requirements]:::early ==> B[2. Design]:::early ==> C[3. Implementation]:::mid ==> D[4. Testing]:::mid ==> E[5. Deployment]:::late ==> F[6. Maintenance]:::late
-
-    classDef early fill:#ede9fe,stroke:#a78bfa,stroke-width:2px,color:#1e1b4b
-    classDef mid fill:#c4b5fd,stroke:#8b5cf6,stroke-width:2px,color:#1e1b4b
-    classDef late fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#ffffff
-
-    linkStyle default stroke:#8b5cf6,stroke-width:2px
-```
-
 > One direction only — no systemic provision for returning to a previous stage.
 
 ## Managing uncertainty: The rise of Agile
@@ -83,9 +72,9 @@ The theory behind Scrum is based on Empirical Process Control, which states that
 
 | Sprint Characteristics in Scrum<br><br> | Implications for Product Development<br><br>                                                                                                                                               |
 |---------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Fixed Time Cycles (Timeboxes)<br><br>    | Typically ranging from one to four weeks, they impose a risk limit. The maximum effort that can fail or diverge from client expectations equals the duration of the cycle.<br><br>        |
-| Predictability and Rhythm<br><br>             | The team rigorously plans what they will deliver in that specific cycle and commits to it, creating a sustainable and expected delivery cadence for stakeholders.<br><br>          |
-| Iterative Scope Protection<br><br>        | During the Sprint, external changes are discouraged to ensure focus. If the market changes drastically, adaptation occurs in the planning of the next Sprint, just days away.<br><br> |
+| Fixed Time Cycles (Timeboxes)<br><br>    | One to four weeks. Cap on how much can fail in one cycle.<br><br>        |
+| Predictability and Rhythm<br><br>             | Team commits to a specific delivery; cadence is stable for stakeholders.<br><br>          |
+| Iterative Scope Protection<br><br>        | Scope frozen mid-Sprint. External changes wait for the next planning.<br><br> |
 
 Sprints work exceptionally well for innovative product development, where establishing rhythm and short-term predictability matter. The team inspects what was done at the end of each iteration, adjusting not just the product but also their own way of working.
 
@@ -119,14 +108,14 @@ There was widespread consensus around repulsion toward strict command-and-contro
 This ideological convergence culminated in one of the most important events in modern technology history. Between February 11 and 13, 2001, at the invitation of engineer Robert C. Martin ("Uncle Bob"), seventeen highly influential professionals gathered at The Lodge at Snowbird ski resort in the mountains of Utah, United States. Among those present were Kent Beck and Ron Jeffries (for XP), Jeff Sutherland and Ken Schwaber (for Scrum), along with other prominent figures such as Martin Fowler, Alistair Cockburn, and Jim Highsmith.
 
 Expectations of consensus were extremely low; Cockburn himself described the group as an assembly of independent "organizational anarchists." Yet the synergy was nearly instantaneous. Frustrated with corporate bureaucratic processes that systematically hindered rather than helped the delivery of quality software, they drafted and signed the Manifesto for Agile Software Development (the term "agile" was chosen after debate, winning over options like "lightweight").
-The Manifesto imposed no new technical framework, nor did it dictate programming practices; it wrote the cultural constitution for a new way of cognitive work. The document was built on 4 non-negotiable pillars, which formally outlined the evolution of technology project management:
+The Manifesto imposed no new technical framework, nor did it dictate programming practices; it wrote the cultural constitution for a new way of cognitive work. The document was built on 4 core pillars, which formally outlined the evolution of technology project management:
 
 | The 4 Pillars of the Agile Manifesto<br><br><br><br>                                  | Interpretation and Application in Software Management<br><br><br><br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 |---------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1. Individuals and interactions over processes and tools<br><br><br><br> | Systems development is, first and foremost, a complex human endeavor. If two developers can solve a logical or architectural problem in 5 minutes of direct conversation, forcing them to create a support ticket, wait for managerial triage, reply via formal email, and schedule a deliberative meeting constitutes pure flow waste. Processes and tools exist to scale the organization and record history, not to replace or rigidify live communication. When an institutional process hinders collaboration and direct conversation between the minds solving the problem, that process must be questioned and subverted.<br><br><br><br>                                                                                                                                                                                                                                                              |
-| 2. Working software over comprehensive documentation<br><br><br><br>        | In the old Waterfall model, the approval of hundreds of pages of specifications was celebrated as a progress milestone, even without a single line of working code. The Manifesto subverts this illusion: meticulously documenting a product that doesn't perform its real-world functions serves no economic purpose. The focus falls on creating the minimum artifact necessary for the work to be understood and maintained — nothing more. The maxim doesn't irresponsibly mean "document nothing," but emphatically guides: "prioritize delivering real, testable, tangible value over producing bureaucratic paperwork."<br><br><br><br>                                                                                                                                                                                                                                           |
-| 3. Customer collaboration over contract negotiation<br><br>           | Traditional management positions the client as an external requisitioner who signs dogmatic specifications, transfers legal risk, and awaits the result at the end of the schedule. In agile management, the client is transmuted into an intrinsic daily development partner (a direct echo of XP's on-site customer practice). Rituals like Scrum's Sprint Reviews — product demonstrations at the end of each two-week cycle — exist for exactly this purpose: to show the built increment, receive constructive criticism, and correct the course before committing to the next engineering stage. The model is one of continuous co-creation, abolishing the "final surprise delivery" that inevitably disappoints stakeholders.<br><br>                                                                                                                                          |
-| 4. Responding to change over following a plan<br><br>                        | The most severe cultural transition for established companies rests on this pillar. Planning is inevitable and necessary for resource allocation, but predictive plans are treated rigorously as scientific hypotheses that must be tested against the friction of reality. Unforeseen events aren't failures — they're the norm: a competitor launches a disruptive feature that needs to be replicated immediately, the client alters their global business strategy, or a critical security bug surfaces in the database. The original plan exists only as a guiding reference (and it's vital that this understanding be aligned among all executives and stakeholders), never as a punitive, immutable contract. The capacity to adapt economically in real time is worth orders of magnitude more than processual obedience to a roadmap established in the past.<br><br> |
+| 1. Individuals and interactions over processes and tools<br><br><br><br> | Two developers solving a problem in 5 minutes of conversation beats a ticket, triage, email, and meeting every time. Processes scale the org and record history — they don't replace live communication. Any process that blocks the people closest to the problem is the process to question.<br><br><br><br>                                                                                                                                                                                                                                                              |
+| 2. Working software over comprehensive documentation<br><br><br><br>        | Waterfall celebrated hundreds of pages of specs as progress, with no working code. The Manifesto inverts this: document only what's needed for the work to be understood and maintained. Not "don't document" — prioritize real, testable value over paperwork.<br><br><br><br>                                                                                                                                                                                                                                           |
+| 3. Customer collaboration over contract negotiation<br><br>           | Traditional: client signs specs, transfers risk, waits for final delivery. Agile: client is a daily partner (echoing XP's on-site customer). Sprint Reviews exist to demo, gather feedback, and correct course before the next cycle. Continuous co-creation replaces the surprise delivery.<br><br>                                                                                                                                          |
+| 4. Responding to change over following a plan<br><br>                        | Plans are hypotheses to test against reality, not contracts. The unexpected is the norm — competitor launches, client pivots, critical bugs. The original plan is a reference, not a punishment. Adapting in real time is worth more than obedience to a stale roadmap.<br><br> |
 
 Jim Highsmith, one of the signatories, noted that the explosive adoption of agile methodologies that followed the Manifesto occurred not because of pair programming mechanics or visual boards, but because the values allowed organizational environments based on trust, collaboration, and respect for the human intelligence of developers, freeing them from the micromanagement culture that penalized dynamic adaptation.
 
@@ -151,61 +140,23 @@ Formalized in the book *Kanban: Successful Evolutionary Change for Your Technolo
 
 | Essential Kanban Method Practices<br><br><br><br><br><br>                                                                  | Theory and Practical Application in Development<br><br><br><br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 |-------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Visualize the Workflow<br><br>                                                                                        | The invisible cognitive process of software creation is externalized on a visual board (typically columns such as To Do, In Progress, and Done). The tangible representation of the knowledge and stage of each request allows the team, and even external stakeholders, to immediately understand the state of the system and organically identify obstructive bottlenecks.<br><br><br><br>                                                       |
-| Limit Work in Progress (WIP)<br><br><br><br> | This is the backbone of Kanban. WIP (Work in Progress) is rigidly capped per column. If a stage reaches its stipulated limit, the system prohibits new items from entering it, forcing the team to converge efforts to finish active tasks and unblock the production line. This directly attacks the paradox that starting multiple simultaneous projects delays the final delivery of all of them. The focus shifts from "starting work" to "completing value."<br><br><br><br> |
-| Active Management of Continuous Flow<br><br><br><br>                                                                         | Kanban abandons Scrum's fixed cycles. Demands enter the system dynamically, are prioritized, and executed continuously as soon as the WIP limit of the first column permits. Results are measured not by the packaged Sprint velocity, but by Lead Time (the total time a request takes from order to actual delivery to the client).<br><br><br><br>                                              |
+| Visualize the Workflow<br><br>                                                                                        | Externalize the invisible work on a board (To Do / In Progress / Done). Team and stakeholders see the state of the system at a glance, and bottlenecks surface on their own.<br><br><br><br>                                                       |
+| Limit Work in Progress (WIP)<br><br><br><br> | Backbone of Kanban. Each column has a hard cap; once full, no new items enter. The team must finish active work to unblock the line. Attacks the paradox that starting many things in parallel delays all of them. Focus shifts from starting to finishing.<br><br><br><br> |
+| Active Management of Continuous Flow<br><br><br><br>                                                                         | No fixed cycles. Demand enters as WIP frees up; results are measured by Lead Time — order to delivery — not by Sprint velocity.<br><br><br><br>                                              |
 
 ## Sprints, Continuous Flow, and the Small Batches principle
 
 Today, the best management understands that Scrum and Kanban are not mutually exclusive (and often coexist in the hybrid known as Scrumban), but serve distinct operational profiles.
 
-Sprints (fixed-cadence cycles) work extraordinarily well for innovation and new product development fronts — scenarios where two weeks of focal isolation, strategic planning, and orchestrated collective rhythm create stability over market chaos. The commitment established by the development team in a Sprint Planning serves to protect engineering from untimely commercial whims, generating predictability across time blocks.
+Sprints (fixed-cadence cycles) work extraordinarily well for innovation and new product development fronts — scenarios where two weeks of protected focus and shared rhythm create stability against market churn. The commitment established by the development team in a Sprint Planning serves to protect engineering from untimely commercial whims, generating predictability across time blocks.
 
-Kanban, operating with an uninterrupted throughput flow system, shines where demand is stochastic and uncontrollable. It is widely recommended and adopted by infrastructure support and continuous operations teams, where problems arise unpredictably and absolute control of work congestion through WIP restriction is the only way to avoid human burnout and system paralysis.
+Kanban, operating with an uninterrupted throughput flow system, shines where demand is stochastic and uncontrollable. It is widely recommended and adopted by infrastructure support and continuous operations teams, where problems arise unpredictably and capping WIP is the primary lever against burnout and system paralysis.
 
 The success of both, however, inevitably anchors itself in the imperative of slicing large deliverables, reflecting the DevOps cultural principle of small batches and Lean manufacturing flow integration. Queue theory and complex systems demonstrate that the smaller the atomic unit of work, the faster code moves through the flow, minimizing friction. A massive, poorly scoped task consuming 3 full weeks of development delays the entire process, retains invested capital, and delivers value and quality validation only at the end of its cycle.
 
-In contrast, slicing that monolith into three smaller, independent tasks ensures that value is delivered progressively. More importantly, small batches reveal structural deficiencies, design deviations, or test automation failures dramatically sooner, allowing the course correction imposed by human imperfection — theorized since Royce in 1970 — to happen within hours, permanently mitigating the exponential risk of classical methods.
+In contrast, slicing that monolith into three smaller, independent tasks ensures that value is delivered progressively. More importantly, small batches reveal structural deficiencies, design deviations, or test automation failures dramatically sooner, allowing the course correction imposed by human imperfection — theorized since Royce in 1970 — to happen within hours, containing the compounding risk the classical methods carried.
 
 The true evolution of technology management is not the replacement of one closed methodology by another, but the progressive understanding that empirical tools — like Sprints for creative momentum and Kanban for bottleneck clearance — create a framework for dealing with the essential complexity of software.
-
-```mermaid
-%%{init: {'flowchart':{'nodeSpacing':25,'rankSpacing':35,'padding':6},'themeVariables':{'fontSize':'11px'}}}%%
-flowchart TB
-    classDef store fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
-    classDef ceremony fill:#ede9fe,stroke:#7c3aed,stroke-width:1.5px,color:#1e1b4b
-    classDef workitem fill:#c4b5fd,stroke:#8b5cf6,stroke-width:1.5px,color:#1e1b4b
-    classDef wiplimit fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
-    classDef outcome fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
-
-    PB[("Product<br/>Backlog")]:::store
-    Plan(("Sprint<br/>Planning")):::ceremony
-    Daily(("Daily<br/>Scrum")):::ceremony
-    Rev(("Sprint<br/>Review")):::ceremony
-    Ret(("Retro")):::ceremony
-    Inc(["Increment"]):::outcome
-
-    PB ==>|Pull| Plan
-
-    subgraph Board [" "]
-        direction LR
-        TD["To Do"]:::workitem
-        IP["WIP"]:::wiplimit
-        CR["Review"]:::workitem
-        D["Done"]:::outcome
-        TD ==> IP ==> CR ==> D
-    end
-
-    Plan ==> TD
-    Daily <-.-> IP
-    D ==> Rev
-    Rev ==>|Demo| Inc
-    Rev ==> Ret
-    Ret -.->|Process| Plan
-    Ret -.->|Backlog| PB
-
-    linkStyle default stroke:#8b5cf6
-```
 
 ## Practical guide for modern teams
 
@@ -343,7 +294,7 @@ There is a natural temptation among managers to track performance by measuring t
 
 High performance in software engineering is measured by the collective predictability of delivery (the team's stabilized average velocity), by the reduction of *Lead Time* (time from conception to production), and by the empirical consistency in achieving the proposed *Sprint Goal*.
 
-If success is measured by collective delivery, how does leadership operate meritocracy, salary increases, and individual dismissals? Evaluating an engineer by delivery volume is like evaluating a surgeon by the number of scalpels used. Mature management, especially in the context of enterprise software platforms, replaces volume metrics (*output*) with metrics of **impact, behavior, and quality** that can be obtained through feedback from the team itself.
+If success is measured by collective delivery, how does leadership operate meritocracy, salary increases, and individual dismissals? Evaluating an engineer by delivery volume is like evaluating a surgeon by the number of scalpels used. Mature management, especially in enterprise contexts, replaces volume metrics (*output*) with metrics of **impact, behavior, and quality** that can be obtained through feedback from the team itself.
 
 ### Identifying High Performance: Who to Promote
 
@@ -351,7 +302,7 @@ Promotion in technology should rarely be a prize for "writing a lot of code fast
 
 * **The Multiplier Effect:** A high-performance developer doesn't just deliver their own work; they elevate the entire team's technical level. This is visible in who does the best code reviews (*Pull Requests*), who unblocks colleagues stuck on logical problems, and who documents obscure processes. The true senior makes the entire team go faster.
 * **Business Vision over Code:** The professional ready for the next level understands the *why* behind the software. They don't just ask "how do I integrate this API?", but question the business impact: "If the client's flow is X, does this feature actually solve their pain point or just add complexity?" They protect return on investment (ROI).
-* **Resolving Complexity and Reducing Technical Debt:** Mediocre professionals create features by adding accidental complexity. Excellent professionals solve the same problem by removing useless code, simplifying the architecture, and ensuring the feature doesn't generate structural incidents the following month.
+* **Resolving Complexity and Reducing Technical Debt:** Weaker engineers ship features by adding accidental complexity. Stronger ones solve the same problem by removing code, simplifying the architecture, and avoiding incidents the following month.
 * **Autonomy and Reliability:** You hand them an ambiguous problem and know it will come back resolved — or with clear, risk-grounded decision options.
 
 ### Identifying Friction: Who to Let Go
@@ -379,7 +330,7 @@ The manager and technical leadership cross the developer's behaviors over months
 
 Fred Brooks, in *The Mythical Man-Month*, was categorically correct: there is no silver bullet. The *essential* difficulties of building software — algorithmic complexity, rigorous conformity, business changeability, and structural invisibility — will never be eliminated by *Scrum* or *Kanban* flows. **No *framework* will make the client's mind immutable or reduce the logical complexity of a scalable ecosystem.**
 
-The real value of modern agile management lies in imposing rhythm and the clarity of visibility. Short cycles force architectural failures to surface sooner. The Retrospective institutionalizes continuous sanitation of the way of working itself. The *Sprint Goal* decentralizes decision-making, putting an end to micromanagement.
+The real value of modern agile management lies in imposing rhythm and visibility. Short cycles force architectural failures to surface sooner. The Retrospective institutionalizes continuous sanitation of the way of working itself. The *Sprint Goal* decentralizes decision-making, putting an end to micromanagement.
 
 Kent Beck, creator of *Extreme Programming* (XP), summarized the ultimate goal of these dynamics with the phrase: *"Embrace change."* Success doesn't come from following methodological playbooks to the letter, but from internalizing continuous change not as a disruption in the schedule, but as the natural state of engineering excellence — and training people capable of doing the same.
 
@@ -389,7 +340,7 @@ The advent of advanced AI assistants — such as GitHub Copilot, Claude Code, an
 
 Returning to Brooks's definitions, the answer lies in understanding that **Artificial Intelligence attacks accidental difficulties, but not essential ones.**
 
-AI acts as a tireless pair programming partner, reducing the friction of language syntax, generating repetitive tests, and navigating and documenting legacy systems in seconds. The technical barrier of writing boilerplate code has dropped dramatically, accelerating development throughput to unprecedented levels.
+AI acts as a pair programming partner that doesn't tire, reducing the friction of language syntax, generating repetitive tests, and navigating and documenting legacy systems in seconds. The technical barrier of writing boilerplate code has dropped dramatically, accelerating development throughput to unprecedented levels.
 
 However, essential difficulties remain in the human domain. Software will continue to have to adapt to ambiguous tax rules, unverbalized client expectations, and unpredictable market rule changes. Artificial intelligence can generate a thousand lines of code in a fraction of a second, but who guides its commercial utility?
 
