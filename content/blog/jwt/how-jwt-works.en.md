@@ -1,8 +1,8 @@
 ---
 date: '2025-12-02T20:10:00-03:00'
 draft: false
-title: 'How Jason Web Tokens Work'
-summary: 'How Jason Web Tokens (JWT) work for user authentication'
+title: 'How JSON Web Tokens Work'
+summary: 'How JSON Web Tokens (JWT) work for user authentication'
 categories:
 - Software Development
 - Technology
@@ -23,7 +23,7 @@ It is usually sent using the **Bearer** scheme in the header, like this:
 
 This is especially useful in application scalability and Single Sign-On (SSO) scenarios. In a multi-instance application scenario, the less state you need to maintain, the better. It causes fewer cache validation/invalidation issues. If you need to query a database to validate whether a user is valid or not, every request ends up generating a query. This creates more traffic and higher database usage, which isn't desirable, especially in application layer redundancy scenarios.
 
-In SSO scenarios, they are also interesting because you have a central entity that validates who the users are, while various other services don't need to do this work again. Other services can trust, via the digital signature, that the user has those access rights.
+In SSO scenarios, they're also useful: you have a central entity that validates user identity, while other services don't need to repeat that work. Other services can trust, via the digital signature, that the user has those access rights.
 
 ## The Structure of a JSON Web Token
 
@@ -68,9 +68,9 @@ As a fictional example, below is a JSON with 6 registered, 3 public, and 3 priva
 
 Keep in mind:
 
-{{\< callout type="warning" \>}}
+{{< callout type="warning" >}}
 All information present in a JWT is **public**
-{{\< /callout \>}}
+{{< /callout >}}
 
 All information in a JWT is **not encrypted** and can be read by anyone. Its signature serves to audit that it was signed by who claims to have signed it, but it doesn't hide the information. For confidential information, values must be encrypted within the JSON, or depending on the case, JWE (JSON Web Encryption) should be used.
 
@@ -84,7 +84,7 @@ It's easier to visualize using the [jwt.io](https://www.jwt.io/) site as an exam
 
 ![Screen capture showing the signature process of a token on the jwt.io website, showcasing the Header, Payload and Signature](/images/blog/jwt/signing-jwt-io-en.png)
 
-For the key `SECRET-KEY-THAT-STAYS-ONLY-ON-THE-SERVER` the HS256 algorithm was used, wich would be a good option for a monolith application or multiple services on the same machine. For distributed systems, algorithms like RSA (RS256) could be used, being verified via the server's public key pair, decreasing the chance of the key being leaked.
+For the key `SECRET-KEY-THAT-STAYS-ONLY-ON-THE-SERVER` the HS256 algorithm was used, which would be a good option for a monolith application or multiple services on the same machine. For distributed systems, algorithms like RSA (RS256) could be used, being verified via the server's public key pair, decreasing the chance of the key being leaked.
 
 This is how Google and Facebook social logins work, for instance, guaranteeing with their public keys that the tokens were signed by them.
 
@@ -110,4 +110,4 @@ Thus, the flow for the user (in practice, the client application) works as follo
 
 This creates a hybrid model, where most requests are fast and stateless, reducing validation involving the database and state, while maintaining security so the user cannot keep using old permissions and access for too long.
 
-Note that it is up to the servers to implement the function of rejecting expired JWTs.
+Note that servers are responsible for rejecting expired JWTs.

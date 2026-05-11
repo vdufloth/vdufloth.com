@@ -25,13 +25,13 @@ Envia-se geralmente usando o esquema de **Bearer** no cabeçalho, desta forma:
 
 Isto é especialmente útil em cenários de escalabilidade de aplicações e Single Sign On (SSO, login único). Em um cenário de várias instâncias de uma aplicação quanto menos estado você precisar manter, melhor. Gera menos problemas de validação / invalidação de cache. Se for necessário consultar um banco de dados para validar se um usuário é válido ou não, toda requisição acaba gerando uma consulta, o que gera mais tráfego e mais uso do banco de dados, o que não é desejado especialmente em cenários de redundância da camada de aplicação.
 
-Em cenários de SSO também são interessantes por você ter uma entidade central que valida que os usuários são quem são, e vários outros serviços que não precisam realizar este trabalho novamente. Os demais serviços podem confiar através da assinatura digital, que o usuário tem aqueles diretos de acesso.
+Em cenários de SSO também são interessantes por você ter uma entidade central que valida que os usuários são quem são, e vários outros serviços que não precisam realizar este trabalho novamente. Os demais serviços podem confiar através da assinatura digital, que o usuário tem aqueles direitos de acesso.
 
 ## Como é a estrutura de um JSON Web Token
 
-Os JWT como dito em seu próprio nome são compostos por 2 objetos JSON, o *header* (cabeçalho) e o *payload* (carga) transformados para [base64Url](https://datatracker.ietf.org/doc/html/rfc4648), além do hash. Estes 3 itens são concatenados com pontos.
+Como o nome indica, JWTs são compostos por 2 objetos JSON, o *header* (cabeçalho) e o *payload* (carga) transformados para [base64Url](https://datatracker.ietf.org/doc/html/rfc4648), além do hash. Estes 3 itens são concatenados com pontos.
 
-O *header* geralmente será sempre composto pelo tipo do token e o algoritmo de assinatura usado. Como exemplo:
+O *header* tipicamente contém o tipo do token e o algoritmo de assinatura usado. Como exemplo:
 
 ``` json {filename="header"}
 {
@@ -74,11 +74,11 @@ Atente-se que:
   Toda informação presente em um JWT é **pública**
 {{< /callout >}}
 
-Toda informação em um JWT **não está encriptada** e pode ser lida por qualquer um. Sua assinatura serve para auditar que foi assinado por quem diz ter assinado, mas não oculta as informações. Para informações que devem ser sigilosas, seus valores devem ser encriptados dentro do JSON ou dependendo do caso deve, ser usado JWE (JSON Web Encryption).
+Toda informação em um JWT **não está encriptada** e pode ser lida por qualquer um. Sua assinatura serve para auditar que foi assinado por quem diz ter assinado, mas não oculta as informações. Para informações sigilosas, seus valores devem ser encriptados dentro do JSON ou, dependendo do caso, deve-se usar JWE (JSON Web Encryption).
 
-Pense em JWTs como documentos assinados digitalente em que todos podem ler seu conteúdo. A assinatura que vai em conjunto do mesmo serve para validar que quem diz ter assinado realmente é o dono da assinatura e que assinou o documento naquela versão, sem edições.
+Pense em JWTs como documentos assinados digitalmente em que todos podem ler seu conteúdo. A assinatura que vai em conjunto do mesmo serve para validar que quem diz ter assinado realmente é o dono da assinatura e que assinou o documento naquela versão, sem edições.
 
-É como um servidor entregar um documento a um usuário que diz: *"Atesto que user_12345 realmente tem os app_roles: admin e editor"* para ele poder apresentar em outros sitemas que confiam nesse autenticador.
+É como um servidor entregar um documento a um usuário que diz: *"Atesto que user_12345 realmente tem os app_roles: admin e editor"* para ele poder apresentar em outros sistemas que confiam nesse autenticador.
 
 Após termos um *header* e um *payload* podemos realizar o restante das ações para gerar o token, que é codificá-los em base64Url, concatenar com ponto, gerar a assinatura com o método escolhido e concatená-la também com ponto ao restante.
 
@@ -86,22 +86,21 @@ Fica visual de entender usando o site da [jwt.io](https://www.jwt.io/) como exem
 
 ![Captura de tela mostrando o processo de assinatura de um token no site jwt.io, destacando o Header, Payload e a Assinatura](/images/blog/jwt/signing-jwt-io-pt.png)
 
-Com a chave `CHAVE-SECRETA-QUE-SO-FICARIA-NO-SERVIDOR` foi utilizado o algoritmo HS256, que seria um bom uso para aplicações monolito ou serviços distintos em um único servidor. Para sistemas distribuídos, poderia ser usado outro algoritmo como RSA (RS256), por exemplo, para ser verificado através do par público da chave do servidor, diminuindo a chance da chave ser comprometida através de um dos sitemas.
+Com a chave `CHAVE-SECRETA-QUE-SO-FICARIA-NO-SERVIDOR` foi utilizado o algoritmo HS256, que seria uma boa opção para aplicações monolíticas ou múltiplos serviços em uma única máquina. Para sistemas distribuídos, poderia ser usado outro algoritmo como RSA (RS256), por exemplo, para ser verificado através do par público da chave do servidor, diminuindo a chance da chave ser comprometida através de um dos sistemas.
 
 É assim que utiliza-se o login social do Google e Facebook, por exemplo, garantindo com suas chaves públicas que os tokens foram assinados por eles.
 
 ## Revogações e Renovações
 
-Uma grande vantagem do JWT como dito anteriormente é ser 
-*stateless* e não precisar de consultas a bancos de dados para autenticação, mas isso traz um desafio. E como saber quando o acesso de um usuário mudou ou foi revogado?
+Uma grande vantagem do JWT, como dito anteriormente, é ser *stateless* e não precisar de consultas a bancos de dados para autenticação, mas isso traz um desafio. E como saber quando o acesso de um usuário mudou ou foi revogado?
 
 Imagine a necessidade de banir um usuário imediatamente ou alterar seu nível de acesso. Se ele já tinha um token salvo em seu navegador poderia seguir usando os sistemas sem fazer um novo login e usando seu acesso antigo indefinidamente?
 
-Para resolver isso, é usado na prática 2 tokens:
+Para resolver isso, na prática são usados 2 tokens:
 * Access Token: É o token que usamos nas requisições (com o Bearer) e tem um tempo de vida curto, 15 minutos por exemplo.
 * Refresh Token: É um token de vida longa, 7 dias por exemplo, e geralmente é um código opaco (aleatório) salvo no banco de dados e devolvido ao usuário de forma segura, em cookies HttpOnly por exemplo. Ele não é aceito em requisições além da própria renovação.
 
-Note que é recomendado o Refesh Token ser armazenado em Cookie do tipo HttpOnly para que códigos JavaScript no navegador não consigam ler ou acessar. O próprio navegador o reenvia quando for uma solicitação para o mesmo domínio.
+Note que é recomendado o Refresh Token ser armazenado em Cookie do tipo HttpOnly para que códigos JavaScript no navegador não consigam ler ou acessar. O próprio navegador o reenvia quando for uma solicitação para o mesmo domínio.
 
 Assim, o fluxo para o usuário (na prática, a aplicação cliente), funciona da seguinte forma:
 1. Cliente faz login e recebe o Access Token e o Refresh Token;
@@ -111,4 +110,4 @@ Assim, o fluxo para o usuário (na prática, a aplicação cliente), funciona da
 
 Isso cria um modelo híbrido em que a maioria das requisições seja rápida e *stateless* diminuindo a validação que envolve banco de dados e estado, porém mantendo a segurança do usuário não poder seguir usando permissões e acessos antigos por muito tempo.
 
-Note que cabe aos servidores implementarem a função de não aceitarem JWT expirados.
+Note que cabe aos servidores rejeitar JWTs expirados.
