@@ -2,12 +2,12 @@
 name: review-article
 description: Review and (with approval) edit blog articles for EN/PT alignment, native-speaker fit per locale, four-lens audience reception, and AI-slop / LinkedIn phrasing leaks. Interactive approval gate before any edit. Trigger when user invokes /review-article with a path, stem, or directory.
 argument-hint: <path | stem | directory> [--diff] [--lens=peer|hm|founder|emp|all]
-allowed-tools: Read, Glob, Grep, Bash(git diff:*), Bash(git merge-base:*), AskUserQuestion, Edit, Write
+allowed-tools: Read, Glob, Grep, Bash(git diff:*), Bash(git merge-base:*), Bash(rm:*), AskUserQuestion, Edit, Write
 ---
 
 # review-article
 
-Guided review of a blog post draft with an interactive approval gate. The skill scans, presents each finding (original / proposed / why), and edits the article only for findings the user explicitly accepts. A sidecar `<stem>.review.md` records the full decision log.
+Guided review of a blog post draft with an interactive approval gate. The skill scans, presents each finding (original / proposed / why), and edits the article only for findings the user explicitly accepts. The full decision log is printed inline to the chat as the skill's final output — no sidecar file is written, and any leftover `<stem>.review.md` from a previous run is removed.
 
 ## Inputs
 
@@ -143,11 +143,13 @@ If a finding's intent is ambiguous (could be translation issue or deliberate cho
    - `old_string` = the finding's `original`.
    - `new_string` = the finding's `proposed`. If `proposed == "delete"`, set `new_string` to the empty surrounding form that keeps the file well-formed (drop the line, collapse the bullet, etc.).
    - If `old_string` is not unique in the file, expand the quote with one line of surrounding context and retry. Never fall back to a fuzzy match.
-4. On any Edit failure: stop the apply pass, report which finding failed and why, leave remaining edits unapplied, and write the sidecar with `Applied`, `Pending`, and `Failed` sections populated.
+4. On any Edit failure: stop the apply pass, report which finding failed and why, leave remaining edits unapplied, and print the `Applied` / `Pending` / `Failed` summary inline (do not write a file).
 
-## Phase E — Sidecar `.review.md`
+## Phase E — Final summary (inline)
 
-Write `content/blog/<stem>.review.md` (sibling of the article). Overwrite on each run.
+Do not write any file. Print the decision log as the skill's last chat output, in the exact markdown shape below. The chat scrollback is the author's record; git history of the article files is the audit trail of what changed.
+
+Before printing the summary, check for a stale sidecar from a previous run and remove it: if `content/blog/<stem>.review.md` exists, delete it with `Bash(rm <path>)`. This keeps `content/` clean of any non-page markdown that would otherwise leak into Hugo's feed (any file under `content/blog/` without front matter is rendered as a ghost page with a `0001-01-01` zero-date).
 
 ```markdown
 # Review — <stem> — <YYYY-MM-DD>
@@ -168,8 +170,6 @@ Write `content/blog/<stem>.review.md` (sibling of the article). Overwrite on eac
 - F22 align foo.pt.md:301 — Edit failed: old_string not unique after context expansion
 ```
 
-Sidecar is for the author's record; gitignore decision is the author's, not enforced by the skill.
-
 ## Constraints
 
 - Never edit without an explicit Accept decision recorded for that finding.
@@ -179,4 +179,5 @@ Sidecar is for the author's record; gitignore decision is the author's, not enfo
 - Ambiguous intent → ask via `AskUserQuestion`; do not guess.
 - Preserve the author's natural tone (terse, concrete, opinionated, dry, willing to admit uncertainty). Do not push toward a generic "professional" register.
 - Do not generate translations. Flag missing translations; the author writes them.
+- Do not write any file under `content/` other than the article files being edited. The decision log is inline-only; any pre-existing `<stem>.review.md` sidecar must be deleted, not refreshed.
 - Do not commit or push. The author commits manually.
