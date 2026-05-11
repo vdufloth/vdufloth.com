@@ -46,6 +46,10 @@ When editing visual styling, decide whether the change is home-only (edit `home.
 - `markup.goldmark.renderer.unsafe: true` — raw HTML in Markdown is allowed (the inline styles in `about.*.md` and similar rely on this).
 - `minify.minifyOutput: true` — production HTML is minified; whitespace-sensitive markup needs explicit handling.
 
+## Commit conventions
+
+Do not append a `Co-Authored-By: Claude ...` trailer to commit messages in this repo.
+
 ## Repo-local skill: `review-article`
 
 `.claude/skills/review-article/SKILL.md` defines a guided review workflow for bilingual blog posts. Trigger: `/review-article <path | stem | directory>`. It scans EN/PT pairs for translation drift, non-native phrasing per locale, AI-slop / LinkedIn idioms, voice fidelity (anchored against `content/_index.{en,pt}.md` and `content/about.{en,pt}.md`), and diagram parity. Findings are presented one-by-one with an approval gate; accepted edits are applied and a `<stem>.review.md` sidecar records the decision log. Use it before merging any post.
