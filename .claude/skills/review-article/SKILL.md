@@ -1,11 +1,13 @@
 ---
 name: review-article
-description: Review a blog article for EN/PT translation alignment, native-speaker fit per locale, audience reception across three demographics (tech employees evaluating the author as a manager, $10k+/mo remote recruiters, founders seeking tech advisor/CTO work), and AI-slop / LinkedIn phrasing leaks. Suggestions only — never edit. Trigger when user invokes /review-article with a path to a content/blog/*.md file, an article stem, or a directory.
+description: Review and (with approval) edit blog articles for EN/PT alignment, native-speaker fit per locale, four-lens audience reception, and AI-slop / LinkedIn phrasing leaks. Interactive approval gate before any edit. Trigger when user invokes /review-article with a path, stem, or directory.
+argument-hint: <path | stem | directory> [--diff] [--lens=peer|hm|founder|emp|all]
+allowed-tools: Read, Glob, Grep, Bash(git diff:*), Bash(git merge-base:*), AskUserQuestion, Edit, Write
 ---
 
 # review-article
 
-Review a blog post draft for cross-language alignment, native-speaker readability, three-audience fit, and AI/LinkedIn phrasing leaks. Output suggestions only — never edit the article.
+Guided review of a blog post draft with an interactive approval gate. The skill scans, presents each finding (original / proposed / why), and edits the article only for findings the user explicitly accepts. A sidecar `<stem>.review.md` records the full decision log.
 
 ## Inputs
 
@@ -14,83 +16,167 @@ The user provides one of:
 - An article stem (e.g. `content/blog/foo`); locate both `foo.en.md` and `foo.pt.md`.
 - A directory containing both locale files.
 
+Optional flags:
+- `--diff` — limit scan to paragraphs changed vs `git merge-base HEAD main`.
+- `--lens=peer|hm|founder|emp|all` — restrict the demographic-lens pass; default `all`.
+
 If only one locale is provided, locate the sibling locale by swapping the `.<locale>.md` suffix. If the sibling is missing, flag it and proceed with the available file only.
 
-## Steps
+## Phase A — Load & scope
 
-### 1. Load
-- Read the EN file and the PT file (if both exist).
-- Read `content/_index.{en,pt}.md` and `content/about.{en,pt}.md` once to anchor the author's natural tone (terse, opinionated, concrete-over-buzzword, learning-out-loud, dry humor). Voice reference only — do not compare content.
+1. Resolve input → locate `foo.en.md` + `foo.pt.md`.
+2. Sibling missing → flag, continue single-locale.
+3. Stub gate: any locale with fewer than 200 words → flag stub, ask the user whether to continue.
+4. Voice anchors: read `content/_index.{en,pt}.md` and `content/about.{en,pt}.md` once to anchor tone (terse, opinionated, concrete-over-buzzword, learning-out-loud, dry humor). Skip if already in current context. Reference only — do not compare content.
+5. `--diff` mode → run `git merge-base HEAD main` then `git diff <base>..HEAD -- <file>` and restrict scan to touched paragraphs.
 
-### 2. Translation alignment (EN ↔ PT)
-- Are the same arguments, examples, and conclusions present in both versions?
-- Flag any paragraph, code block, list item, or claim that exists in one but not the other.
-- Flag paraphrases that drift in meaning, not just wording.
-- Flag missing or different code samples, links, images, or citations.
-- Flag mismatched headings, ordering, or section structure.
+## Phase B — Scan & enumerate findings
 
-### 3. Native-speaker fit
-- **EN**: read for natural US/UK technical-blog register. Flag literal-from-Portuguese phrasing, false cognates, preposition errors, article misuse, or sentence rhythm that signals translation.
-- **PT**: read for natural Brazilian Portuguese technical-blog register. Flag literal English calques, anglicism overuse where a native term fits, or sentence cadence that signals translation.
-- For each flag: quote the offending phrase, explain why it reads non-native, propose a native alternative.
+Every finding has this shape:
 
-### 4. Three-demographic fit
+```yaml
+id: F<n>             # F1, F2, … assigned in scan order
+category: align | native-en | native-pt | lens-peer | lens-hm | lens-founder | lens-emp | slop-en | slop-pt | voice | diagram
+file: content/blog/foo.en.md
+line: 42             # mandatory — Edit anchor
+original: "<exact quote from file>"
+proposed: "<concrete replacement, or 'delete'>"
+why: "<≤1 line rationale>"
+severity: high | med | low
+```
 
-Apply each lens. Answer the embedded sub-questions explicitly. Quote evidence from the article when possible.
+Line numbers are mandatory on every finding. `original` must match the file byte-for-byte so the later Edit pass can anchor on it.
 
-#### Demographic 1 — Tech employees evaluating the author as a manager / company to work for
-- Would they feel they would learn from the author? Where specifically does the writing demonstrate transferable insight versus generic restatement?
-- Would they feel it is worth following the blog for ongoing learning? Is there a recurring thesis, point of view, or area of expertise that compounds across posts?
-- Friction signals: hand-waving, no concrete examples, no opinion, no failure modes acknowledged, no code/diagrams when warranted.
+### Scan checks
 
-#### Demographic 2 — Big-tech or startup recruiters sourcing $10k+/mo remote roles
-- Does the article project credibility for senior IC, tech lead, or CTO-track work?
-- Does it surface scope (team size, system size, blast radius), trade-offs handled, or operator judgment under constraint?
-- Friction signals: tutorials with no judgment, surface-level overviews, missing rationale, no signal of having shipped the thing in production.
+1. **Translation alignment (EN ↔ PT)**
+   - Same arguments, examples, conclusions in both versions?
+   - Flag paragraphs, code blocks, list items, or claims present in one and not the other.
+   - Flag paraphrases that drift in meaning, not just wording.
+   - Flag missing or different code samples, links, images, citations.
+   - Flag mismatched headings, ordering, or section structure.
 
-#### Demographic 3 — Founders seeking tech advisor / part-time CTO / founding CTO
-- Does it pass credibility for architectural decisions and tech-team strategic calls?
-- Does the author show pattern recognition across companies/contexts, not just a single setup?
-- Friction signals: single-context war stories with no transferable framing, framework cheerleading, no discussion of cost/timing/team trade-offs.
+2. **Native-speaker fit**
+   - **EN**: natural US/UK technical-blog register. Flag literal-from-Portuguese phrasing, false cognates, preposition errors, article misuse, translation-cadence sentences.
+   - **PT**: natural Brazilian Portuguese technical-blog register. Flag literal English calques, anglicism overuse where a native term fits, cadence that reads translated.
+   - For each: quote the offending phrase, explain why it reads non-native, propose a native alternative.
 
-### 5. AI-slop and LinkedIn phrasing watch
+3. **Four demographic lenses** (see next section).
 
-High-priority deletions. Flag every occurrence:
+4. **AI-slop / LinkedIn phrasing watch**
+   EN dictionary: "It's important to note that…", "In today's fast-paced world…", "leverage", "delve into", "unlock", "in the realm of", "navigate the complexities of", "robust", "scalable" (unsubstantiated), "seamlessly", "cutting-edge", "best-in-class", "synergy", "ecosystem" (vague), "transform" / "transformation" (paired with "digital"), "real problems with scale and impact", "intersection of X, Y, and Z", "passionate about", "thought leader", "at the end of the day".
+   Plus: tricolons used as ornament without meaning ("clean, fast, and reliable"); throat-clearing openers; grammatically uniform bullet lists without informational reason; em-dash overuse beyond surrounding tone; hedging chains ("might", "could potentially", "in some cases may possibly"); closing paragraphs that summarize what the post just said.
+   PT dictionary: "Aproveitar para", "alavancar", "robusto e escalável", "transformação digital", "no mundo atual", "vale destacar que", "em síntese, podemos afirmar que", "soluções inovadoras", "de ponta", "estado da arte", "empoderar", anglicism stacks where Portuguese has a clean term, gerundismo abuse ("vou estar verificando").
 
-EN:
-- "It's important to note that…", "In today's fast-paced world…", "leverage", "delve into", "unlock", "in the realm of", "navigate the complexities of", "robust", "scalable" (unsubstantiated), "seamlessly", "cutting-edge", "best-in-class", "synergy", "ecosystem" (vague), "transform" / "transformation" (paired with "digital"), "real problems with scale and impact", "intersection of X, Y, and Z", "passionate about", "thought leader", "at the end of the day".
-- Tricolons used as ornament rather than meaning ("clean, fast, and reliable").
-- Paragraphs that open with throat-clearing or restate the prompt.
-- Bullet lists that are grammatically uniform without informational reason.
-- Em-dash overuse beyond what the surrounding tone has earned.
-- Hedging chains ("might", "could potentially", "in some cases may possibly").
-- Closing paragraphs that summarize what the post just said.
+5. **Voice fidelity** — compare against home + About anchors. Flag paragraphs in a different register; propose a tonal correction without losing technical content.
 
-PT:
-- "Aproveitar para", "alavancar", "robusto e escalável", "transformação digital", "no mundo atual", "vale destacar que", "em síntese, podemos afirmar que", "soluções inovadoras", "de ponta", "estado da arte", "empoderar", anglicism stacks where Portuguese has a clean term, gerundismo abuse ("vou estar verificando").
+6. **Diagram parity** — for every mermaid block, ASCII diagram, and image (incl. alt text) in one locale, confirm an equivalent exists in the other. Flag missing, drifted, or untranslated diagrams.
 
-### 6. Voice-fidelity check
-Compare the article's voice against the home + About voice (terse, concrete, opinionated, dry, willing to admit uncertainty). Flag paragraphs that read in a different register and propose how to bring them back without losing technical content.
+## Four demographic lenses
 
-## Output format
+For each lens, answer the sub-questions explicitly with quoted evidence and list friction items.
 
-Produce a single review report with the following sections, in this order. Omit any section without findings.
+### L1 — Peer senior engineer (share / discuss audience)
+- **Sharability**: would a peer send this to a colleague unprompted? What is the one-line reason they would?
+- **Craft**: does the post teach a non-obvious insight, name a real trade-off, or just restate consensus?
+- **Friction**: framework cheerleading, tutorial-without-judgment, no failure modes acknowledged, generic restatement of docs.
 
-1. **Summary** — 2–3 sentences. Top-level verdict and the single most important change.
-2. **Translation alignment** — bullet list of EN/PT divergences. For each: quote both versions, describe the drift.
-3. **Native-speaker fit** — sub-section per locale. Bullet each issue with quote, why it reads non-native, and suggested alternative.
-4. **Demographic 1 — tech employees** — answer the two sub-questions explicitly with quoted evidence; list friction items.
-5. **Demographic 2 — recruiters** — same shape.
-6. **Demographic 3 — founders** — same shape.
-7. **AI-slop / LinkedIn phrasing** — quote each offending phrase with line reference; propose a replacement or deletion.
-8. **Voice fidelity** — flag any paragraph that drifts; propose a tonal correction.
-9. **Top 5 changes (priority-ordered)** — distilled action list. The author can apply these without re-reading the full report.
+### L2 — Hiring manager screening for senior IC / tech lead (replaces "recruiter")
+- **Signal**: does it surface scope (team size, system size, blast radius), trade-offs handled, operator judgment under constraint?
+- **Credibility**: does it project senior IC / tech lead / CTO-track work?
+- **Friction**: surface overviews, missing rationale, tutorials with no judgment, no signal of having shipped in production.
+
+### L3 — Founder seeking advisor / fractional CTO / founding CTO
+- **Architectural judgment**: does it pass credibility for strategic calls on tech-team direction?
+- **Pattern recognition**: does the author show transfer across companies/contexts, not a single setup?
+- **Friction**: single-context war stories without transferable framing, framework cheerleading, no discussion of cost/timing/team trade-offs.
+
+### L4 — Engineer evaluating author as future manager / company to work for
+- **Manager signal**: how does the author treat uncertainty, blame, learning, team dynamics?
+- **Workplace signal**: would a reader want to work in the environment this writing implies?
+- **Friction**: hand-waving, no concrete examples, no acknowledged failure modes, no opinion, sanitized "everything went great" arcs.
+
+## Phase C — Interactive approval
+
+After the scan, print a one-screen summary:
+
+```
+<N> findings — <H> high / <M> med / <L> low
+by category: align=<n>, native-en=<n>, native-pt=<n>, lens-peer=<n>, lens-hm=<n>, lens-founder=<n>, lens-emp=<n>, slop-en=<n>, slop-pt=<n>, voice=<n>, diagram=<n>
+```
+
+Then triage in **severity order (high → med → low)**, with this rule:
+
+- **Non-slop findings** → one `AskUserQuestion` per finding:
+
+  ```
+  header:   "[F<n>] <category> · <file>:<line>"
+  question: "<why> — apply change?"
+  options:
+    Accept           preview: "<proposed>"
+    Keep original    preview: "<original>"
+    Skip / revisit   preview: "ORIGINAL:\n<original>\n\nPROPOSED:\n<proposed>"
+    (auto Other      → user types a note)
+  ```
+
+- **Slop findings** → one **multiSelect** `AskUserQuestion` per `(locale, slop-pattern)` pair. Options list every hit as `line <n>: "<snippet>"` with preview showing the proposed replacement or `delete`. Selected = Accept; unselected = Reject. The auto "Other" path allows a free-text note that applies to the batch.
+
+Record each decision in-memory as `decisions[F<n>] = { choice: accept|reject|skip|note, note?: string }`. A "Note" choice on a non-slop finding implies Reject + free-text note; a note on a slop batch attaches to the batch.
+
+If a finding's intent is ambiguous (could be translation issue or deliberate choice), ask via `AskUserQuestion` mid-scan before classifying — do not invent context.
+
+## Phase D — Consolidated review & apply
+
+1. Print a diff preview grouped by file. Each accepted finding becomes one unified-diff hunk: `--- <file>` / `+++ <file>` / `@@ line <n> @@` / `- <original>` / `+ <proposed>`.
+2. Final gate:
+
+   ```
+   AskUserQuestion:
+     question: "Apply <K> edits across <files>?"
+     options:
+       Apply all
+       Cancel (no edits)
+       Apply but skip a subset   (auto Other → user lists F-ids to skip)
+   ```
+
+3. On Apply: run `Edit` per accepted finding.
+   - `old_string` = the finding's `original`.
+   - `new_string` = the finding's `proposed`. If `proposed == "delete"`, set `new_string` to the empty surrounding form that keeps the file well-formed (drop the line, collapse the bullet, etc.).
+   - If `old_string` is not unique in the file, expand the quote with one line of surrounding context and retry. Never fall back to a fuzzy match.
+4. On any Edit failure: stop the apply pass, report which finding failed and why, leave remaining edits unapplied, and write the sidecar with `Applied`, `Pending`, and `Failed` sections populated.
+
+## Phase E — Sidecar `.review.md`
+
+Write `content/blog/<stem>.review.md` (sibling of the article). Overwrite on each run.
+
+```markdown
+# Review — <stem> — <YYYY-MM-DD>
+
+## Applied
+- F3 native-en foo.en.md:42 — "<original>" → "<proposed>" — <why>
+
+## Rejected (kept original)
+- F7 slop-en foo.en.md:118 — "leverage" — note: "intentional, matches client wording"
+
+## Notes
+- F12 lens-peer foo.en.md:204 — "consider concrete example of cache miss" — note: "todo next pass"
+
+## Skipped
+- F19 diagram foo.pt.md:88 — "mermaid block missing in PT" — note: "needs translator"
+
+## Failed (if any)
+- F22 align foo.pt.md:301 — Edit failed: old_string not unique after context expansion
+```
+
+Sidecar is for the author's record; gitignore decision is the author's, not enforced by the skill.
 
 ## Constraints
 
-- Never edit the article. Suggestions only.
-- Quote the article exactly when flagging issues; do not paraphrase the complaint.
-- Use file paths and line numbers when referencing specific spots.
-- If a locale has fewer than ~200 words, flag the locale as a stub before applying full review.
-- Do not invent missing context. If unable to tell whether a phrase is a translation issue or an intentional choice, ask.
-- Preserve the author's natural tone. Do not push toward a generic "professional" register.
+- Never edit without an explicit Accept decision recorded for that finding.
+- Quote the article exactly when flagging. `original` must match the file byte-for-byte; do not paraphrase.
+- Line numbers are mandatory on every finding.
+- Stub locale (<200 words) → flag and ask before applying the full review.
+- Ambiguous intent → ask via `AskUserQuestion`; do not guess.
+- Preserve the author's natural tone (terse, concrete, opinionated, dry, willing to admit uncertainty). Do not push toward a generic "professional" register.
+- Do not generate translations. Flag missing translations; the author writes them.
+- Do not commit or push. The author commits manually.
