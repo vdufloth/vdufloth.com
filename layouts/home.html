@@ -5,7 +5,7 @@
     <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-12 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="home-mono hx:w-full hx:min-w-0 hx:max-w-[640px] hx:px-6 hx:pt-12 hx:md:pt-16 hx:md:px-8">
         {{ if .Title }}
-          <h1><span class="typewriter" aria-label="{{ .Title }}">{{ .Title }}</span></h1>
+          <h1><span class="typewriter" aria-label="{{ .Title }}"><span class="tw-text">{{ .Title }}</span></span></h1>
         {{ end }}
         {{ with .Params.subtitle }}
           <p class="subtitle">{{ . }}</p>
@@ -45,32 +45,48 @@
       font-weight: 600;
       font-size: 29px;
       letter-spacing: -0.005em;
-      margin: 0 0 6px;
+      margin: 0 auto 6px;
       text-align: center;
     }
     .home-mono h1 .typewriter {
       display: inline-block;
-      overflow: hidden;
+      position: relative;
       white-space: nowrap;
       vertical-align: bottom;
-      width: 12ch;
+    }
+    .home-mono h1 .tw-text {
+      display: inline-block;
+      animation: tw-type 1.4s steps(12, end) 0.2s both;
+    }
+    .home-mono h1 .typewriter::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
       border-right: 0.08em solid currentColor;
       animation:
-        tw-type 1.4s steps(12, end) 0.2s both,
+        tw-cursor-move 1.4s steps(12, end) 0.2s both,
         tw-cursor-off 0s linear 1.65s forwards;
     }
     @keyframes tw-type {
-      from { width: 0; }
-      to { width: 12ch; }
+      from { clip-path: inset(0 100% 0 0); }
+      to { clip-path: inset(0 0 0 0); }
+    }
+    @keyframes tw-cursor-move {
+      from { right: 100%; }
+      to { right: 0; }
     }
     @keyframes tw-cursor-off {
-      to { border-right-color: transparent; }
+      to { opacity: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .home-mono h1 .typewriter {
+      .home-mono h1 .tw-text {
         animation: none;
-        width: 12ch;
-        border-right-color: transparent;
+        clip-path: none;
+      }
+      .home-mono h1 .typewriter::after {
+        display: none;
       }
     }
     .home-mono .subtitle {
