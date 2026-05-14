@@ -6,3 +6,11 @@
   translation: "Best"
 - id: latestPosts
   translation: "Latest"
+- id: allCategories
+  translation: "All"
+- id: filterByCategory
+  translation: "Filter by category"
+- id: articlesCount
+  translation: "articles"
+- id: noArticlesFound
+  translation: "No articles in this category."

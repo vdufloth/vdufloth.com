@@ -18,9 +18,9 @@ languages:
       tag: tags
     menu:
       main:
-        #- name: Blog
-        #  pageRef: /blog
-        #  weight: 1
+        - name: Blog
+          weight: 1
+          url: /pt/blog
         - name: Sobre Mim
           weight: 2
           url: /pt/about
@@ -55,9 +55,9 @@ languages:
       tag: tags
     menu:
       main:
-        #- name: Blog
-        #  pageRef: /blog
-        #  weight: 1
+        - name: Blog
+          weight: 1
+          url: /en/blog
         - name: About
           url: /en/about
           weight: 2
