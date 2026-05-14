@@ -1,0 +1,24 @@
+{{- if .Page -}}
+<!doctype html><html lang="{{ .Page.Language.LanguageCode }}"><head><title>{{ .Permalink }}</title><link rel="canonical" href="{{ .Permalink }}"><meta name="robots" content="noindex"><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={{ .Permalink }}"></head></html>
+{{- else -}}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{{ .Permalink }}</title>
+<link rel="canonical" href="{{ .Permalink }}">
+<meta name="robots" content="noindex">
+<script>
+(function () {
+  var langs = navigator.languages || [navigator.language || navigator.userLanguage || ""];
+  var prefersPt = langs.some(function (l) {
+    return l && l.toLowerCase().indexOf("pt") === 0;
+  });
+  location.replace(prefersPt ? "/pt/" : "/en/");
+})();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url={{ .Permalink }}"></noscript>
+</head>
+<body></body>
+</html>
+{{- end -}}
