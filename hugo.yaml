@@ -6,7 +6,7 @@ module:
   imports:
     - path: github.com/imfing/hextra
 
-DefaultContentLanguage: "pt" # default is en
+DefaultContentLanguage: "en" # default fallback for non-Portuguese / no-JS visitors
 defaultContentLanguageInSubdir: true
 
 languages:
