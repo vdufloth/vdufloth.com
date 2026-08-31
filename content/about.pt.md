@@ -5,28 +5,32 @@ title: 'Sobre'
 
 <img class="profile-avatar" src="/images/vinis-photo-profile.jpg" alt="Vinicius Dufloth" loading="lazy" />
 
-Atualmente Sócio e Head de Tecnologia na [Cyberlog](https://www.cyberlog.net), uma empresa de software B2B no nicho logístico que tem como principal produto um WMS (*Warehouse Management System*).
+Sou sócio e executivo na [Cyberlog](https://www.cyberlog.net), uma empresa de software B2B no nicho logístico que tem como principal produto um WMS (*Warehouse Management System*). Tenho participação no negócio e respondo por duas frentes: o resultado financeiro e a tecnologia.
+
+Uma década depois de entrar, os números pelos quais respondo: a receita dobrou desde que assumi a gestão financeira, o time de engenharia se manteve do mesmo tamanho por três anos enquanto as entregas aumentaram, e a plataforma já processou mais de 8 milhões de pedidos e 150 bilhões de unidades na base de clientes.
 
 ## A Trajetória
 
-Entrei na [Cyberlog](https://www.cyberlog.net), uma empresa cofundada por meu pai, como desenvolvedor trainee. Após seu falecimento em um acidente, herdei uma participação minoritária em um momento crítico, dado o papel central que ele desempenhava na empresa.
+Entrei na Cyberlog — cofundada por meu pai — como desenvolvedor trainee, formado em Ciência da Computação. Após seu falecimento em um acidente, herdei uma participação minoritária em um momento crítico, dado o papel central que ele desempenhava na empresa. Pouco depois, quando a empresa registrou caixa negativo pela primeira vez em sua história, os sócios me chamaram para assumir a gestão financeira.
 
-Pouco depois, quando a empresa registrou caixa negativo pela primeira vez em sua história, os sócios me chamaram para assumir a gestão financeira.
+O que poderia ter sido uma transição forçada virou uma reestruturação. Fiz o MBA em Gestão Empresarial na FGV e estruturei a governança que a empresa nunca teve — DRE, DFC, orçamentos e uma fonte única para informações que viviam espalhadas pela empresa. A partir daí conduzi o trabalho societário: valuation, negociação de saída e entrada de sócios, adaptação à LGPD e uma redefinição do direcionamento estratégico.
 
-Busquei formação em gestão, e o que poderia ter sido uma transição forçada se tornou uma oportunidade de reestruturação. Estruturei governança financeira — DRE, DFC, orçamentos — e conduzi processos societários complexos: valuation, negociação de saída e entrada de sócios, adaptação à LGPD, eliminação de gargalos operacionais e uma redefinição do direcionamento estratégico.
+Alguns anos depois, a tecnologia era o problema: entregas atrasadas, turnover alto e reclamações se acumulando. O estrago não ficou na engenharia — a gerente do suporte saiu por causa dele. Eu vinha cobrando o setor de fora, e os sócios me escolheram para assumir o lugar do gestor da área.
 
-Nos anos seguintes, à medida que a empresa crescia, assumi também a liderança do setor de tecnologia com o desafio de implementar uma gestão de trabalho mais eficiente para o time de desenvolvimento e de migrar nossos produtos de uma tecnologia legada para se tornarem nativos web e cloud.
+Na mesma época, um colaborador antigo pediu para entrar na sociedade. Fiz o valuation, ele comprou participação e assumiu o suporte, que até então era meu. Foi isso que me liberou para a engenharia, sem deixar o financeiro e o administrativo.
+
+Estabilizei as entregas primeiro. A modernização foi decisão minha, com o time já estável: tirar os produtos de uma base legada rumo a web e nuvem, e implantar uma cultura de DevOps que não existia.
 
 ## Hoje
 
-Como Head Financeiro e de Tecnologia, lidero nosso time de desenvolvimento, hoje composto por 10 pessoas, além de orientar as equipes de suporte ao cliente e financeira.
+O ganho dos últimos três anos foi de alavancagem, não de tamanho: mesmo headcount, mais senioridade, menos turnover e mais entregas — com a receita dobrando no mesmo período.
 
-Uso metodologias ágeis com previsibilidade de entregas, modelo de trabalho híbrido e distribuído, e processos estruturados de desenvolvimento de pessoas (plano de carreira, feedbacks contínuos, avaliações). Desde que assumi, o time de engenharia se manteve do mesmo tamanho ao longo de três anos, com mais senioridade, menos turnover e mais entregas.
+Do lado técnico, redesenhei a arquitetura do CyberlogWMS e estamos construindo a aplicação web nativa que substitui progressivamente o legado. Todo serviço crítico saiu do on-premise, e a operação hoje roda com testes automatizados, CI/CD e monitoramento proativo.
 
-Redesenhei a arquitetura do CyberlogWMS e começamos a construir uma aplicação web nativa que substituirá progressivamente o sistema legado. Em um ano de novas práticas, os issues abertos caíram de 200 (com 56 atrasados) para 60 (nenhum atrasado).
+## Fora da Cyberlog
 
-Nossa stack hoje é composta majoritariamente por serviços em Java com bancos de dados Postgres e Oracle. Aplicações Android e React no cliente e Node com TypeScript em alguns serviços não críticos. Temos cultura de DevOps, testes automatizados, CI/CD, monitoramento proativo das instâncias e migramos todo serviço crítico que estava on-premise para a nuvem.
+Na prática, o que faço hoje é advisory para startups em estágio inicial — normalmente diagnóstico de arquitetura e de time. O que está acima me habilita a mais do que isso: viabilidade técnica de um projeto antes de o dinheiro entrar, a decisão entre reconstruir, migrar ou comprar, a virada de uma engenharia que parou de entregar, e o trabalho societário que costuma vir junto — valuation, entrada e saída de sócios, governança.
 
-No lado financeiro, a receita dobrou desde que assumi a gestão. Considerando todos os clientes, a plataforma processou mais de 8 milhões de pedidos e 150 bilhões de unidades até hoje.
+Sou mais útil onde capital, produto e engenharia se encontram: se uma aposta técnica se sustenta, se o time consegue executá-la e quanto ela custa — em engenharia e em resultado.
 
-Fora da Cyberlog, também faço projetos de liderança técnica, consultoria e diagnósticos técnicos, geralmente para startups em estágio inicial.
+Se achar que posso ajudar, ou quiser conversar sobre algum projeto, me chame no [LinkedIn](https://br.linkedin.com/in/vinicius-dufloth).

@@ -5,28 +5,32 @@ title: 'About'
 
 <img class="profile-avatar" src="/images/vinis-photo-profile.jpg" alt="Vinicius Dufloth" loading="lazy" />
 
-Currently Partner & Head of Tech at [Cyberlog](https://www.cyberlog.net), a B2B logistics software company whose main product is a WMS (*Warehouse Management System*).
+I'm a partner and executive at [Cyberlog](https://www.cyberlog.net), a B2B logistics software company whose main product is a WMS (*Warehouse Management System*). I hold a stake in the business and I answer for two sides of it: the P&L and the technology.
+
+Ten years in, the numbers I'm accountable for: revenue has doubled since I took over the books, engineering headcount has held flat for three years while output rose, and the platform has processed 8M+ orders and 150B+ units across our customer base.
 
 ## The Journey
 
-I joined [Cyberlog](https://www.cyberlog.net), a company co-founded by my father, as a trainee developer. After his death in an accident, I inherited a minority stake at a critical moment, given the central role he held in the company.
+I joined Cyberlog — co-founded by my father — as a trainee developer, with a degree in computer science. After his death in an accident I inherited a minority stake at a critical moment, given the central role he held in the company. Shortly after, when the company posted negative cash flow for the first time in its history, the partners called on me to take over financial management.
 
-Shortly after, when the company posted negative cash flow for the first time in its history, the partners called on me to take over financial management.
+What could have been a forced transition became a restructuring. I took an MBA in business management at FGV and built the governance the company had never had — income statements, cash flow, budgets, and a single source of truth for data that lived scattered across the company. From there I led the corporate work: valuation, partner buyouts and admissions, LGPD compliance, and a reset of strategic direction.
 
-I studied management, and what could have been a forced transition became an opportunity to restructure. I built financial governance — income statements, cash flow, budgets — and led complex corporate processes: valuation, partner buyouts and onboardings, LGPD compliance, elimination of operational bottlenecks, and a reset of strategic direction.
+A few years on, technology was the problem: deliveries were late, turnover was high, and complaints were piling up. The damage did not stay inside engineering — the customer support manager left over it. I had been pushing hard on the area from the outside, and the partners chose me to replace the manager running it.
 
-In the following years, as the company grew, I also took on leadership of the tech team, with the challenge of introducing better delivery practices for the dev team and moving our products from legacy technology to web- and cloud-native.
+Around the same time, a long-time employee asked to buy into the company. I ran the valuation, he took the stake and took over customer support, which until then had been mine. That is what freed me for engineering, without stepping away from finance and administration.
+
+I stabilized delivery first. Modernization was my own call, once the team was steady: moving the products off a legacy stack toward web- and cloud-native, and building a DevOps practice from nothing.
 
 ## Today
 
-As Head of Finance and Technology, I lead our development team — currently 10 people — and oversee the customer support and finance teams.
+The last three years bought leverage, not size: same headcount, deeper seniority, lower turnover, more output — with revenue doubling over the same period.
 
-We run agile with predictable delivery, a hybrid and distributed work model, and structured people development (career plans, continuous feedback, evaluations). Since I took over, the engineering team has stayed the same size for three years — with deeper seniority, lower turnover, and more output.
+On the technical side, I redesigned the CyberlogWMS architecture and we are building the web-native application that is progressively replacing the legacy system. Every critical service has moved off on-prem, and the operation now runs on automated tests, CI/CD and proactive monitoring.
 
-I redesigned the CyberlogWMS architecture, and we have started building a web-native application that will progressively replace the legacy system. A year into the new practices, open issues fell from 200 (56 behind schedule) to 60 (none behind).
+## Outside Cyberlog
 
-Our stack today is mostly Java services with Postgres and Oracle databases. Android and React on the client, and Node with TypeScript for some non-critical services. We have a DevOps culture, automated tests, CI/CD, proactive monitoring, and we have migrated every critical on-prem service to the cloud.
+In practice, what I do today is advisory for early-stage startups — usually architecture and team diagnostics. The work above qualifies me for more than that: technical viability of a project before the money goes in, the call between rebuilding, migrating or buying, turning around an engineering org that has stopped delivering, and the corporate work that tends to come with it — valuation, partner buyouts and admissions, governance.
 
-On the finance side, revenue has doubled since I took over the books. Across all customers, the platform has processed 8M+ orders and 150B+ units to date.
+I'm most useful where capital, product and engineering meet: whether a technical bet holds up, whether a team can execute it, and what it costs — in engineering and on the bottom line.
 
-Outside Cyberlog, I also take on technical leadership, consulting, and technical assessment projects, usually for early-stage startups.
+If you think I can help, or you'd like to talk about a project, find me on [LinkedIn](https://br.linkedin.com/in/vinicius-dufloth).
