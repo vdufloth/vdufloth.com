@@ -12,7 +12,7 @@ tags:
 
 Almost everyone met Artificial Intelligence recently, during the hype built around a few advances and product uses that led to an explosion in adoption and application.
 
-To understand what happened since 2021, what AI can and cannot do, and how to use it properly, you have to understand where it came from and how it works. I've been studying AI for more than ten years — I spent 2020 writing a thesis on long short-term memory networks — LSTMs — applied to supply-chain demand forecasting[^tcc] — and what follows is a pass over the field: how it formed, where we stand, and what probably comes next.
+To understand what happened since 2021, what AI can and cannot do, and how to use it properly, you have to understand where it came from and how it works. I've been studying AI for more than ten years — I spent 2020 writing a thesis on long short-term memory networks (LSTMs) applied to supply-chain demand forecasting[^tcc] — and what follows is a run through the field: how it formed, where we stand, and what probably comes next.
 
 ## The milestones, in one table
 
@@ -43,7 +43,7 @@ That distinction isn't footnote philosophy. It separates two stories that ran in
 
 ## The long prehistory
 
-The artificial neuron dates to 1943. McCulloch and Pitts modelled the nervous system as a network of binary threshold elements and showed such a network computes any proposition of propositional logic. It learned nothing: the weights were fixed by the designer.
+The artificial neuron dates to 1943. McCulloch and Pitts modeled the nervous system as a network of binary threshold elements and showed such a network computes any proposition of propositional logic. It learned nothing: the weights were fixed by the designer.
 
 In 1950 Turing changed the question. Instead of "can machines think?", he proposed the imitation game, which became known as the Turing test: an interrogator talks to two interlocutors and tries to say which is the machine. He predicted that in about fifty years an average interrogator would have less than a 70% chance of correct identification after five minutes of questioning. The paper also sets out and answers most of the objections still raised today against the idea of thinking machines.[^origens]
 
@@ -61,17 +61,17 @@ What followed was the first winter, sealed by the 1973 Lighthill report, and a r
 
 In 1980 Digital Equipment Corporation — then the world's second-largest computer maker, behind only IBM — put an expert system into production. Its job was to assemble the configuration of every computer sold: pick which parts go into the order, check they were compatible with each other, and close the list. That was experienced-technician work, and getting it wrong was expensive. By the company's own accounting, the system saved between $25 and $40 million a year. It was the first time AI showed up as a line on the books.
 
-The commercial boom followed, then Japan's Fifth Generation project with ¥57 billion staked on machines purpose-built to run AI, then the defensive American and European programmes. And in 1987 that specialized hardware market collapsed, because ordinary workstations got cheaper and faster than the dedicated machines. Second winter.
+The commercial boom followed, then Japan's Fifth Generation project with ¥57 billion staked on machines purpose-built to run AI, then the defensive American and European programs. And in 1987 that specialized hardware market collapsed, because ordinary workstations got cheaper and faster than the dedicated machines. Second winter.
 
-Worth saying that the winters were funding and expectation cycles, not research stoppages. Backpropagation (1986), temporal-difference learning (1988), SVMs (1995) and LSTM (1997) all shipped *during* them. The field renamed itself — machine learning, pattern recognition, knowledge-based systems — rather than dying.
+The winters were funding and expectation cycles, not research stoppages. Backpropagation (1986), temporal-difference learning (1988), SVMs (1995) and LSTM (1997) all shipped *during* them. The field renamed itself — machine learning, pattern recognition, knowledge-based systems — rather than dying.
 
 The turn came in 1986, with Rumelhart, Hinton and Williams: backpropagation applied to multilayer networks, showing that hidden units learned useful internal representations. It was precisely that ability to create new features that set the method apart from the perceptron convergence procedure — and it is from that paper that the way everyone trains a deep network today descends.[^backprop]
 
-In the 1990s the field turned statistical. Cortes and Vapnik's Support Vector Machines (SVMs) had two advantages the neural network lacked. The first is that training an SVM always lands on the same answer, and it is provably the best answer available for that dataset — there was none of the risk, routine with neural networks, of training stalling on a mediocre model through bad luck in where it started. The second is that there was mathematical theory telling you in advance when the model would hold up on new data. From 1995 to 2010 the SVM was the respectable default and the neural network was fringe, which owed as much to the SVM winning on merit as to any winter.
+In the 1990s the field turned statistical. Cortes and Vapnik's Support Vector Machines (SVMs) had two advantages the neural network lacked. The first is that training an SVM always lands on the same answer, and it is provably the best answer available for that dataset — there was none of the risk, routine with neural networks, of training stalling on a mediocre model because of an unlucky starting point. The second is that there was mathematical theory telling you in advance when the model would hold up on new data. From 1995 to 2010 the SVM was the respectable default and the neural network was fringe, which owed as much to the SVM winning on merit as to any winter.
 
 In May 1997 Deep Blue beat Kasparov 3½–2½. It matters to the story and it is not an ancestor of what came after: Deep Blue learned nothing. It was brute-force search at 200 million positions per second on dedicated silicon, with a hand-tuned evaluation function.
 
-The answer came in two stages, both from the other paradigm. In March 2016 AlphaGo beat Lee Sedol 4–1 in Seoul, watched by some 200 million people, combining supervised learning from human games, reinforcement learning by self-play, and tree search. Go was thought to be a decade away, because its branching factor rules out the brute force that settled chess. The following year AlphaZero dispensed with the human games too: given only the rules, it beat Stockfish in 24 hours of self-play — the direct descendant of Deep Blue's paradigm. Twenty years separate the two, and that contrast is the whole thesis of the next section in a single anecdote.[^jogos]
+The answer came in two stages, both from the other paradigm. In March 2016 AlphaGo beat Lee Sedol 4–1 in Seoul, watched by some 200 million people, combining supervised learning from human games, reinforcement learning by self-play, and tree search. Go was thought to be a decade away, because its branching factor rules out the brute force that settled chess. The following year AlphaZero dispensed with the human games too: given only the rules, in 24 hours of self-play it beat Stockfish — the direct descendant of Deep Blue's paradigm. Twenty years separate the two, and that contrast is the whole thesis of the next section in a single anecdote.[^jogos]
 
 ## Machine learning, concretely
 
@@ -115,7 +115,7 @@ Worth stressing that in practice the boundaries between these categories aren't 
 
 ## Neural networks
 
-Artificial neural networks, also called multilayer perceptrons, are an architecture based on how the brain works, with neurons connected to each other forming a network. The idea comes from the thought that since the brain is an example of intelligent behaviour, you could reverse-engineer it, looking for its mechanical principles in an attempt to replicate them.
+Artificial neural networks, also called multilayer perceptrons, are an architecture based on how the brain works, with neurons connected to each other forming a network. The idea comes from the thought that since the brain is an example of intelligent behavior, you could reverse-engineer it, looking for its mechanical principles in an attempt to replicate them.
 
 Structurally they're made of nodes or units connected by directed links, each carrying a specific weight. Each unit computes a weighted sum of all its inputs and applies an activation function to that value. The result moves on.
 
@@ -131,11 +131,11 @@ All of 2026's AI is still that. Weights, activations, batches, epochs, a gradien
 
 ## 2012: when it started working
 
-In 2009 Fei-Fei Li's group published ImageNet: images organized by WordNet's noun hierarchy, labelled at scale through Mechanical Turk. Her contribution usually gets flattened to "she built a big dataset." The real thesis ran against the consensus: the bottleneck in computer vision was the *data*, not the algorithms. That was an unpopular claim in 2007 and hard to get funded.
+In 2009 Fei-Fei Li's group published ImageNet: images organized by WordNet's noun hierarchy, labeled at scale through Mechanical Turk. Her contribution usually gets flattened to "she built a big dataset." The real thesis ran against the consensus: the bottleneck in computer vision was the *data*, not the algorithms. That was an unpopular claim in 2007 and hard to get funded.
 
 In 2012 AlexNet won the ImageNet competition with 15.3% top-5 error against the runner-up's 26.2% — the largest gap in the competition's history. Five convolutional layers, 60 million parameters, trained on two 3 GB GeForce GTX 580 cards over five or six days.
 
-Nothing in it was a new idea. Convolutional networks are LeCun, 1989. ReLU and dropout were recent but known. What was new is that scale made them work: labelled data in volume, parallel hardware, and enough capacity. Within a year essentially every serious vision group had switched to deep learning.[^imagenet]
+Nothing in it was a new idea. Convolutional networks are LeCun, 1989. ReLU and dropout were recent but known. What was new is that scale made them work: labeled data in volume, parallel hardware, and enough capacity. Within a year essentially every serious vision group had switched to deep learning.[^imagenet]
 
 My reading of it, twelve years on, is the one Rich Sutton wrote in 2019 and Sara Hooker formalized in 2020. Sutton: "the biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin." Hooker called it the hardware lottery: a research idea wins "because it is suited to the available software and hardware and not because the idea is superior to alternative research directions."
 
@@ -169,7 +169,7 @@ There are three gates. The input gate decides what to write, the output gate dec
 
 The work compared four methods over the monthly sales series of Canadian manufacturing from 1992 to 2020: a naïve forecast as benchmark, exponential moving average, multivariate linear regression, and LSTM. I measured everything with mean absolute error and root mean squared error.
 
-The LSTM didn't come first in either scenario. With simple univariate inputs there was no gain at all from machine learning. With multivariate inputs, six prior months per forecast, the gain was significant — on a dataset in the tens of millions, the accuracy difference between methods exceeded a hundred thousand Canadian dollars, which would have changed planning in practice. But the method that captured that gain was multivariate linear regression. The conclusion I wrote was that, carrying far more complexity than linear regression and showing no better accuracy, the LSTM was not recommended for that problem.
+The LSTM didn't come first in either scenario. With simple univariate inputs there was no gain at all from machine learning. With multivariate inputs, six prior months per forecast, the gain was significant — on monthly sales in the tens of millions, the accuracy difference between methods exceeded a hundred thousand Canadian dollars, which would have changed planning in practice. But the method that captured that gain was multivariate linear regression. The conclusion I wrote was that, carrying far more complexity than linear regression and showing no better accuracy, the LSTM was not recommended for that problem.
 
 I also wrote that hyperparameter selection was "more art than science." Six years on that remains partly true.
 
@@ -199,7 +199,7 @@ That's the paper that turned AI research into an engineering discipline with a r
 
 Two relevant corrections landed in 2022. The first was DeepMind's Chinchilla, which trained more than four hundred models and showed Kaplan's allocation advice was wrong: parameters and tokens should grow roughly together. A 70-billion model trained on four times the tokens, at the same compute budget, beat models of 175, 178 and 530 billion. Every large model from 2020 to 2022 was undertrained.
 
-The second was InstructGPT. Training the model to follow instructions from human feedback produced what still strikes me as the decade's most striking number: outputs from the aligned 1.3-billion-parameter model were preferred to those of the 175-billion GPT-3, with a hundred times fewer parameters. Alignment stopped being a safety tax and became a capability multiplier.[^rlhf]
+The second was InstructGPT. Training the model to follow instructions from human feedback produced what still seems to me the decade's most striking number: outputs from the aligned 1.3-billion-parameter model were preferred to those of the 175-billion GPT-3, with a hundred times fewer parameters. Alignment stopped being a safety tax and became a capability multiplier.[^rlhf]
 
 On November 30, 2022, OpenAI released ChatGPT. There was no new model capability in it: GPT-3.5, plus learning from human feedback, plus a chat box. It was a distribution event, not a research one. GPT-3 had existed for two and a half years and nobody outside the developer circle cared.
 
@@ -211,7 +211,7 @@ March 2023 brought GPT-4, and with it a milestone that went largely unremarked. 
 
 The same month Anthropic launched Claude, trained with constitutional AI rather than pure human feedback, and in May became the first to offer a 100,000-token window.
 
-On the other side, Meta's LLaMA shipped in February 2023 under a research-only licence — and leaked. The leak is what actually triggered the open-weights explosion. The commercially usable version arrived in July as Llama 2, and it's that one, not the first, that marks the start of the open-weights industry. In October, Mistral 7B under Apache 2.0 beat Llama 2's 13-billion model.[^gpt4]
+On the other side, Meta's LLaMA shipped in February 2023 under a research-only license — and leaked. The leak is what actually triggered the open-weights explosion. The commercially usable version arrived in July as Llama 2, and it's that one, not the first, that marks the start of the open-weights industry. In October, Mistral 7B under Apache 2.0 beat Llama 2's 13-billion model.[^gpt4]
 
 The context window grew in a way worth looking at on a log scale, because on a linear one the early years disappear:
 
@@ -239,23 +239,23 @@ In 2023 a Stanford group showed that much of this came from the ruler, not the m
 
 In September 2024 came the second scaling law. OpenAI's o1 is trained by reinforcement to produce a long internal chain of reasoning before answering, making inference time a scaling axis of its own. Kaplan said spend more on training; o1 said you can also spend more while answering. On AIME 2024, GPT-4o scored 12% and o1 scored 74%.[^raciocinio]
 
-Two pieces from 2024 explain most of what followed in 2025. The first is RLVR: reinforcement learning with verifiable rewards. Instead of teaching the model from what human raters prefer, you let an automatic checker give the score. Does the arithmetic match? Do the tests pass? Reward 1 or 0. It's cheap, and there's no pleasing the grader without actually being right. It also explains why maths and code advanced much faster than writing and judgment: only the former can check themselves.
+Two pieces from 2024 explain most of what followed in 2025. The first is RLVR: reinforcement learning with verifiable rewards. Instead of teaching the model from what human raters prefer, you let an automatic checker give the score. Does the arithmetic match? Do the tests pass? Reward 1 or 0. It's cheap, and there's no pleasing the grader without actually being right. It also explains why math and code advanced much faster than writing and judgment: only those two can check themselves.
 
 The second is the Model Context Protocol (MCP), opened by Anthropic in November 2024. Before it, wiring a model to each tool — the calendar, the database, the code repository — took a hand-built integration for every model-and-tool combination. MCP turned that into a single socket: the tool speaks MCP once and serves any model. OpenAI and Google adopted it, a rare case of a competitor's standard winning outright, and it was donated to the Linux Foundation's Agentic AI Foundation in December 2025. It's the reason "agent" became practical rather than a demo. I wrote about it in detail [in a separate article](../model-context-protocol/).[^raciocinio]
 
 ## Agents, verifiers, and the state
 
-In January 2025 DeepSeek published R1 under an MIT licence, showing that reasoning can be incentivized by pure reinforcement learning, with no human-annotated reasoning traces at all. The paper later passed peer review in *Nature* — the first frontier reasoning model to do so.
+In January 2025 DeepSeek published R1 under an MIT license, showing that reasoning can be incentivized by pure reinforcement learning, with no human-annotated reasoning traces at all. The paper later passed peer review in *Nature* — the first frontier reasoning model to do so.
 
 The number that circulated was the cost, and it's worth separating what each figure covers. The $5.576 million figure is from the DeepSeek-V3 paper, not R1, and covers only the final pretraining run, explicitly excluding prior research, ablations, data and hardware capital — the paper says so itself. The $294,000 disclosed in September 2025 is R1's incremental reinforcement-learning cost on top of the base model. SemiAnalysis estimated total hardware spend near $500 million. None of the three is, on its own, "the cost of building DeepSeek." On January 27, NVIDIA fell about 17%, losing roughly $589 billion in market value in a single day.[^deepseek]
 
-In February 2025 Anthropic shipped Claude 3.7 Sonnet alongside Claude Code. The model is the first hybrid — extended reasoning you can switch on and off, with a thinking budget set in tokens. Claude Code is the product that normalized the workflow where the agent edits the repo, runs the tests and opens the PR. In May, Claude 4 became the first frontier model published under its own lab's elevated safety tier, because internal testing couldn't rule out uplift toward CBRN weapons.
+In February 2025 Anthropic shipped Claude 3.7 Sonnet alongside Claude Code. The model is the first hybrid — extended reasoning you can switch on and off, with a thinking budget set in tokens. Claude Code is the product that normalized the workflow where the agent edits the repo, runs the tests and opens the PR. In May, Claude 4 became the first frontier model published under its own lab's elevated safety tier, because internal testing couldn't rule out uplift toward chemical, biological, radiological and nuclear weapons.
 
 SWE-bench tells the story of that period better than any narrative: around 33% at the end of 2024, 72.7% in September 2025, 80.9% in November 2025. Benchmarks are saturating in months rather than years, and each harder replacement lasts a short while.[^agentes]
 
 Prices fell alongside. According to Epoch AI, for a fixed capability level the inference price drops at a median of about 50× a year, and that pace has accelerated since 2024. The cleanest example is internal to a single lab: Opus 4.5, in November 2025, cut the price from $15/$75 to $5/$25 per million tokens — better model, a third of the price, eight months apart. One caveat Epoch itself makes and worth repeating: unit price fell, total spend rose.[^agentes]
 
-And the release cadence changed character. On Opus 5, from July 2026, Axios wrote the line that best sums up the year: it's "Anthropic's fourth Claude 5 model release in less than two months, underscoring how AI deployment has shifted from blockbuster launches to rapid improvements on capability, cost and speed." The launch stopped being a useful narrative unit.
+And the release cadence changed character. Writing about Opus 5 in July 2026, Axios produced the line that best sums up the year: it's "Anthropic's fourth Claude 5 model release in less than two months, underscoring how AI deployment has shifted from blockbuster launches to rapid improvements on capability, cost and speed." The launch stopped being a useful narrative unit.
 
 What made news in 2026 was something else. In April, Anthropic introduced Claude Mythos, a security-specialized model capable of finding novel vulnerabilities and writing exploits, and deliberately restricted access: it went to defenders first, through Project Glasswing, so critical infrastructure could be hardened before equivalent capability reached attackers. By May, more than ten thousand high- or critical-severity vulnerabilities found; by June, around 150 organizations across more than fifteen countries.
 
@@ -293,11 +293,11 @@ On the other side, Dario Amodei wrote in October 2024 that powerful AI "could co
 
 My own bet, and this is opinion, runs in two directions that reinforce each other.
 
-The first is that inference moves down to the local machine. Efficiency is rising on both sides at once: models of the same size now do what six months earlier took a much larger one, and hardware is specializing for exactly this use — Apple put a neural accelerator inside every GPU core from the M5 series on, and unified memory at volume is today the single biggest unlock for running a large model at home. It isn't that the subscription ends tomorrow. It's that running a model stops requiring a top-of-the-line card and becomes another property of the machine someone already owns, the way a processor, memory and an operating system are.
+The first is that inference moves down to the local machine. Efficiency is rising on both sides at once: models of the same size now do what six months earlier took a much larger one, and hardware is specializing for exactly this use — Apple put a neural accelerator inside every GPU core from the M5 series on, and unified memory in quantity is today what most decides whether a large model runs at home. It isn't that the subscription ends tomorrow. It's that running a model stops requiring a top-of-the-line card and becomes another property of the machine someone already owns, the way a processor, memory and an operating system are.
 
-The second is that the agent becomes an ordinary part of using a computer. Nobody subscribes to a CPU or rents RAM by the month; in ten years, or fewer, an AI agent should be as unremarkable as a spreadsheet or a browser. I wrote about both at more length [in a separate article](../intent-and-validation/), starting from the case of an open 27-billion-parameter model that reached the previous closed top running on a graphics card bought online.
+The second is that the agent becomes an ordinary part of using a computer. Nobody subscribes to a CPU or rents RAM by the month; in ten years, or fewer, an AI agent should be as unremarkable as a spreadsheet or a browser. I wrote about both at more length [in a separate article](../intent-and-validation/), starting from the case of an open 27-billion-parameter model that matched the previous closed-model ceiling while running on a graphics card you can order online.
 
-There's also a constraint that is neither research nor opinion. The IEA projects data-centre electricity consumption at around 945 TWh by 2030. US grid interconnection queues run past 2,600 GW with multi-year delays, and a large training facility today needs 100 MW to 1 GW dedicated. The limit that binds first isn't the graphics card, it's the outlet.
+There's also a constraint that is neither research nor opinion. The International Energy Agency projects data center electricity consumption at around 945 TWh by 2030. US grid interconnection queues run past 2,600 GW with multi-year delays, and a large training facility today needs 100 MW to 1 GW dedicated. The limit that binds first isn't the graphics card, it's the outlet.
 
 ## The pattern that repeats
 
@@ -305,13 +305,13 @@ If this history teaches one thing, it's that the field errs systematically in th
 
 The perceptron was right and twenty years early. MYCIN beat the Stanford specialists and never treated a patient. The LSTM was the most commercially deployed architecture of the 2010s and was made obsolete by a paper that removed the very thing it existed to fix. And the conclusion I reached in 2020, that multivariate linear regression solved that problem better than the neural network did, is still the most useful lesson I took from the whole exercise: between two methods of similar accuracy, the simpler one is the one that stays.
 
-What changed since 2021 wasn't the idea. It was the substrate arriving, and arriving with a price falling too fast for the market to settle around it. The history is worth knowing because it tells you where to look when the next release gets described as a rupture: in the table up top, almost none of them were.
+What changed since 2021 wasn't the idea. It was the substrate arriving, and arriving with a price falling too fast for the market to settle around it. The history is worth knowing because it tells you where to look when the next release gets described as a clean break with everything before it: in the table up top, almost none of them were.
 
 [^tcc]: *Aplicação de Machine Learning na Cadeia de Suprimentos: Utilizando Aprendizagem de Longo Prazo para Previsão de Demanda* — my undergraduate thesis in Computer Science at URI Erechim, 2020, advised by Prof. Marcos André Lucas. The conceptual parts of this article on machine learning, neural networks and LSTM come from Chapter 3, rewritten for here.
 [^origens]: The McCulloch and Pitts neuron is from 1943. Turing's paper is [*Computing Machinery and Intelligence*](https://academic.oup.com/mind/article/LIX/236/433/986238), in Mind, October 1950 — worth reading, it aged well. The [Dartmouth proposal](https://ojs.aaai.org/aimagazine/index.php/aimagazine/article/view/1904) is from August 1955. The Perceptron appeared in Psychological Review in 1958; the *New York Times* line came from the Navy press conference, not from Rosenblatt ([Cornell Chronicle](https://news.cornell.edu/stories/2019/09/professors-perceptron-paved-way-ai-60-years-too-soon)).
 [^samuel]: *Some Studies in Machine Learning Using the Game of Checkers*, in the IBM Journal of Research and Development, 1959, with a sequel in 1967. In 1962 the program beat Robert Nealey, a Connecticut state champion.
 [^perceptrons]: *Perceptrons: An Introduction to Computational Geometry*, MIT Press, 1969. The [2017 reissue](https://mitpress.mit.edu/9780262534772/perceptrons/) carries a foreword by Léon Bottou that places the book well in its time.
-[^invernos]: MYCIN's numbers come from a blind evaluation published in [JAMA in 1979](https://jamanetwork.com/HttpHandlers/ArticlePdfHandler.ashx?journal=JAMA&articleId=366606&pdfFileName=jama_242_12_020.pdf). XCON was presented by John McDermott at [AAAI-80](https://cdn.aaai.org/AAAI/1980/AAAI80-076.pdf); the two savings figures come from DEC estimates of different years, hence the range. The phrase "AI winter" was coined at an AAAI panel in 1984, by Roger Schank and Marvin Minsky.
+[^invernos]: MYCIN's numbers come from a blind evaluation published in [JAMA in 1979](https://jamanetwork.com/HttpHandlers/ArticlePdfHandler.ashx?journal=JAMA&articleId=366606&pdfFileName=jama_242_12_020.pdf). DEC's system was called XCON and was presented by John McDermott at [AAAI-80](https://cdn.aaai.org/AAAI/1980/AAAI80-076.pdf); the two savings figures come from DEC estimates of different years, hence the range. The phrase "AI winter" was coined at an AAAI panel in 1984, by Roger Schank and Marvin Minsky.
 [^backprop]: *Learning representations by back-propagating errors*, [Nature 323](https://www.nature.com/articles/323533a0), 1986, with the longer treatment in Chapter 8 of *Parallel Distributed Processing*. SVMs come from Cortes and Vapnik, *Support-vector networks*, 1995.
 [^jogos]: The 1997 match is told by [IBM itself](https://www.ibm.com/history/deep-blue) — Kasparov had won 4–2 in 1996. AlphaGo appeared in Nature in January 2016, before the Lee Sedol match; [AlphaZero](https://arxiv.org/abs/1712.01815) is from December 2017.
 [^imagenet]: The [ImageNet paper](https://www.image-net.org/static_files/papers/imagenet_cvpr09.pdf) is from 2009 and the competition started in 2010. [AlexNet](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) had 60 million parameters and ran on two consumer cards.
