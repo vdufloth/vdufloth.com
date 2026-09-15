@@ -1,6 +1,6 @@
 ---
-date: '2026-09-14T10:00:00-03:00'
-draft: true
+date: '2026-09-15T10:00:00-03:00'
+draft: false
 title: 'A História da Inteligência Artificial: Como Chegamos Aqui e o Que Vem Depois'
 summary: 'Quase todo mundo conheceu a IA durante o hype. Um apanhado do campo desde 1943 — o que eu estudei e escrevi até 2020, o que aconteceu de lá para cá, e o que ela ainda não faz.'
 categories:

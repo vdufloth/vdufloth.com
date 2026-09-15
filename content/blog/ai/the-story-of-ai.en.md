@@ -1,6 +1,6 @@
 ---
-date: '2026-09-14T10:00:00-03:00'
-draft: true
+date: '2026-09-15T10:00:00-03:00'
+draft: false
 title: 'The Story of Artificial Intelligence: How We Got Here and What Comes Next'
 summary: 'Almost everyone met AI during the hype. A pass over the field since 1943 — what I studied and wrote up through 2020, what happened after, and what it still cannot do.'
 categories:
