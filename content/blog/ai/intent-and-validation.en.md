@@ -9,6 +9,7 @@ categories:
 - Career
 tags:
 - ai
+- best
 ---
 
 ## When a free model caught up with the paid ones
