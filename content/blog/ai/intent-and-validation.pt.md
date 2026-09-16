@@ -9,6 +9,7 @@ categories:
 - Carreira
 tags:
 - ai
+- best
 ---
 
 ## Quando um modelo de graça alcançou os modelos pagos
