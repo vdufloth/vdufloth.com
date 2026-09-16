@@ -7,8 +7,7 @@ categories:
 - Security
 - Technology
 - Software Development
-tags:
-- best
+tags: []
 ---
 
 The weakest part of any system is rarely something technical like encryption or a zero-day. Those exist, but they're rare. The weakest part is your own login password — when you don't follow good practices.
