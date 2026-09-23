@@ -1,7 +1,6 @@
 ---
-date: '2026-09-22T10:00:00-03:00'
-draft: true
-title: 'How experienced programmers and tech thinkers and authors are using AI?'
+date: '2026-09-23T10:00:00-03:00'
+title: 'How experienced programmers, tech thinkers and authors are using AI?'
 summary: 'How fifteen respected engineers use coding agents, what they still keep under human control, and where their practices genuinely disagree.'
 categories:
 - Technology
@@ -12,13 +11,15 @@ tags:
 
 ## Introduction
 
-AI-assisted development is changing quickly enough that practices which looked extreme a year ago are becoming ordinary. I wanted to see whether some form of “common sense” was emerging among several engineers whose judgment I respect. In the end, I will draw my own conclusions and compare them with my own experience.
+Artificial Intelligence-assisted development is changing quickly enough that practices which looked extreme a year ago are becoming ordinary. I wanted to see whether some form of “common sense” was emerging among several engineers whose judgment I respect. In the end, I will draw my own conclusions and compare them with my own experience.
 
 The interesting question is no longer whether they use AI. Everyone here does. The question is:
 
 > **What are they delegating to AI, and what do they still feel they must review closely or do manually?**
 
 I looked primarily at first-party material published between 2025 and September 2026: their writing, talks, interviews, repositories, and project instructions. The dates matter. Several of these engineers changed their workflows substantially within months.
+
+> **TL;DR of my takeaway:** AI can take over most implementation, and sometimes even source review, but serious systems still need an accountable human who understands the system, controls its intent and architecture, defines the evidence required to trust it, and makes the final decisions. My workflow keeps those responsibilities human, encodes them in plans, project instructions, and automated checks, then lets agents implement and review while I plan the next change. [The appendix summarizes what each engineer delegates and retains.](#appendix-engineer-by-engineer-takeaways)
 
 ## David Heinemeier Hansson - DHH
 
@@ -176,49 +177,67 @@ The most defensible present conclusion is narrower than either the hype or the b
 
 ## My Takeaway
 
-My take on that is that we must keep in mind that LLMs are **token predictors**. They don't reason, they don't think they don't ponder.
-And even if they did, they don't have the experience of previous proejects or the organizational context of what is a priority or not, what will the future team that supports the system will look like.
+My starting point is that we must remember that LLMs are **token predictors**. They do not reason or deliberate; they predict the next token. Even if they did reason, they would not have the experience of previous projects or the organizational context to know what is a priority and what the future team supporting the system will look like.
 
-The most enthuasiastic about AI delegation might say "just add it to the context", "record meetings, record everything and just add it as context and let the LLM decide what to do". 
+The people most enthusiastic about AI delegation might say: “Just add it to the context. Record the meetings, record everything, add it all as context, and let the LLM decide what to do.”
 
-Of course, each session has a limited context, but I could imagine a possible workflow (in theory), by having a "master" agent with all the organization context that receives demands and create sub-agents with sub-tasks with contained scope. But i say "in theory" because I have not seen it happen neither could make it happen for serious and complex work. What I see happening is that eventually the business logic gets repeated, architectural patterns stop working, API and interfaces no longer are intuitive and standardazied and it compouds to a big unmaintanable (even to the LLM ) spagghetti code.
+Of course, each session has a limited context. In theory, I can imagine a workflow with a “master” agent that holds the organization's context, receives requests, and creates sub-agents with narrowly scoped tasks. But I say “in theory” because I have neither seen it work nor managed to make it work for serious, complex software. What I see instead is that business logic eventually gets duplicated, architectural patterns break down, APIs and interfaces stop being intuitive and standardized, and the problems compound into a large spaghetti codebase that is unmaintainable even for the LLM.
 
-My takeway is that AI has to be used, of course, but for serious and complex work, there must be a human engineer that really understands the system and the goal of said system to clean up, trim, refactor, correct course. That increases the speed, but reduces the compounding of bad smells that the LLM could introduce.
+My takeaway is that AI has to be used given the productivity boost it brings. But for serious and complex work, there must be a human engineer who truly understands the system and its goal—someone who can clean up, trim, refactor, and correct course. AI increases the speed of implementation, while that human involvement reduces the accumulation of bad smells the LLM might introduce.
 
-And it still takes a human to find out the truth, meaning, be responsible and take design decisions on systems.
+It still takes a human to determine what is true, decide what it means, take responsibility, and make design decisions about the system.
 
-Note that I said "on serious and complex work". For MVPs, POCS, throwaway code, custom tools and helpers, custom dashboards, 'vibe coding' surely is a good option and allows a lot of increase in productivity. Today one thing I like to do is to use the AI to vibe code a script for a task I do repetitivly. That way i have reproductive, fast, no token usage, deterministic results and takes me no time, takes the agent's time. Theses situations can surely be a black box.
+Note that I said “for serious and complex work.” For MVPs, POCs, throwaway code, custom tools and helpers, or custom dashboards, vibe coding is surely a good option and can produce a large increase in productivity. One thing I like to do is ask AI to vibe-code a script for a task I perform repeatedly. Once generated, the script runs quickly and reproducibly, produces deterministic results without further token usage, and costs the agent's time rather than mine. These implementations can safely be black boxes.
 
-However, for complex systems or systems that will eventually be complex, and should be reliable, I bealive we still need (and probably ever will) need humans engineers acountable. My workflow today is always something like that:
+However, for complex systems—or systems that will eventually become complex—and for software that must be reliable, I believe we still need, and probably always will need, accountable human engineers. My workflow today looks roughly like this:
 
-Plan with an AI Agent and let it bring possibilites. I select the possibility for things like: programming language, framework, technology, hosting, database. I select what I think the most cost effective and strategic given my knowledge and experience and what i expect and plan for the project.
+I plan with an AI agent and ask it to surface possibilities. I choose among them for decisions such as the programming language, framework, technology, hosting, and database. Based on my knowledge, experience, and plans for the project, I select what I consider the most cost-effective and strategically appropriate options.
 
-From that, is generated a doc and another session (to keep on 200k - 300k token sessions when they are cheaper faster and more effective) with the agent, another deep dive on what are the main database and domain entities and classes, APIs, general architecture, folder structure. From this selection comes another more detailed document.
+From that work, the agent generates a document. In a fresh session—which keeps each session within the cheaper, faster, and more effective 200,000–300,000-token range—we take a deeper look at the main database and domain entities and classes, APIs, general architecture, and folder structure. Those decisions become a second, more detailed document.
 
-From that, I ask a small step like the first API first database script and check. If I like and it is okay, I ask the agent to create a AGENTS.md with the appropriate documentation and reference that what was done is the standard.
+I then ask for a small first step, such as the first API or database script, and inspect it. If the result is sound and I like the direction, I ask the agent to create an `AGENTS.md` with the appropriate documentation and establish what we have done as the standard.
 
-From that, the agent can freely write with me having much more confidence that it will stay on guard-rails.
+From that point, the agent can write more freely, and I have much more confidence that it will remain within the established guardrails.
 
-Also, another key thing, is using DevOps everywhere. Automated testing, CI/CD, E2E testing of key features, everything we know in the world of devops apply and it helps tremendously. And is easier to do, beacuse of AI. Writing tests, scripts, these code can surely be a 'black box'.
+Another key practice is using DevOps everywhere: automated tests, CI/CD, and end-to-end testing of key features. Everything we already know from DevOps applies, and it helps tremendously. AI also makes that infrastructure easier to create. Tests, scripts, and similar supporting code can safely be black boxes.
 
-With an existing project, smaller demmands can be 'one shoted' more easily. You do a first plan, a new session executes, a new session reviews (i use for exeample My skill TODO: Find link review-current-work), make the MR, and human looks broadly for intuitions of errors, approaves, and the cycle continues.
+In an existing project, smaller requests can more easily be handled in one shot. One session prepares the plan, a fresh session executes it, and another fresh session reviews it—I use, for example, my public [review-current-work skill](https://github.com/vdufloth/agent-plugins/blob/main/plugins/vdufloth/skills/review-current-work/SKILL.md). The agent creates the merge request, a human reviews it broadly for anything that looks or feels wrong, approves it, and the cycle continues.
 
-To me the biggest speedup, is that the time i would be actually writing the code, the LLM does it. So I have one focus at each time on the understanding and planning of a problem. For the execution and review and PR writing, the agent goes do it himslef. And the thing is for me, that while he is doing that, I can start another planning. So that is what increases dramatically my productiviie, without me loosing control, that will be required eventually for hard problems or inquiries or architectural changes.
+For me, the biggest speedup comes from the LLM doing the work during the time I would otherwise spend writing code. I can focus on understanding and planning one problem at a time. The agent then handles the implementation, review, and merge-request description. While it does that, I can start planning the next change. That is what dramatically increases my productivity without sacrificing control—control that will eventually be required for difficult problems, investigations, or architectural changes.
 
-From the experienced programmers above, three quotes are exactly my thoughts on it:
+Three statements from the experienced programmers above capture exactly how I think about this:
 
 > For maintained code, somebody must understand the result well enough to take responsibility for it.  
 > — Linus Torvalds, paraphrased
 
-On a serious project, if you change something and it breaks and asks you why did you do that in that way, a repsonse like 'because Claude sais so' doesn fly very far with stakeholders.
+On a serious project, if you change something, it breaks, and a stakeholder asks why you did it that way, a response such as “because Claude said so” does not go very far.
 
 > The human still defines architecture and scope, decides which evidence is adequate, and remains accountable when the harness misses something.  
 > — Addy Osmani, paraphrased
 
-That is still the developers most toughtfull job. The mechanical writing part is 'solved' altough even there there is some key points on readability and maintanacen that is good to track and intervene, but the design architecture and accountability and mainly the simplification of a system, are the enginneers account. 
+That remains the developer's most thoughtful job. The mechanical writing part is “solved,” although even there, readability and maintainability still need to be monitored and occasionally corrected. But design, architecture, accountability, and especially the simplification of a system remain the engineer's responsibility.
 
 > Most implementation can be delegated, but comprehension and responsibility remain indivisible from serious engineering.  
 > — Armin Ronacher, paraphrased
 
-Understanting and taking decisions and being responsbile for them, must still belong to a human dedicated to making it work and that has all accounts for what went wrong and how to avoid it in the future. LLMs have the text generation and exploration ability and even computer system interaction far greater then humans. However, reason, intent and validatoin (TODO: link here to my intent and validation article) are still intrisically human.
+Understanding the system, making decisions, and taking responsibility for them must still belong to a human dedicated to making it work—someone accountable for what went wrong and for preventing it from happening again. LLMs can generate and explore text, and even interact with computer systems, at a scale far beyond humans. Reason, intent, and validation, however, are still intrinsically human, as I explored in [“What's Left When AI Becomes a Commodity? Intent and Validation”](/en/blog/ai/intent-and-validation/).
 
+## Appendix: Engineer-by-engineer takeaways
+
+| Engineer | Delegates to AI | Keeps under human control |
+| --- | --- | --- |
+| David Heinemeier Hansson (DHH) | Nearly all implementation on a new project such as Omarchy Quattro, including local design decisions; much less source inspection for UI and auxiliary code. | Overall system shape and close review of critical code. Existing production systems still need an experienced engineer to preserve architectural coherence. |
+| Robert C. Martin | Implementation and refactoring inside a highly disciplined agent workflow. | Accepted behavior, architecture rules, and permission to alter acceptance scenarios, enforced through tests and dependency checks. |
+| Fábio Akita | Most implementation, tests, mechanical refactoring, research, and infrastructure work. | The *what* and *why*, architecture, interfaces, prioritization, security judgment, validation, and continuous pruning of bad abstractions. |
+| Kent Beck | Most code production, experiments, and mechanical work. | Design quality, test discipline, feedback loops, task decomposition, and intervention when local agent decisions damage the whole. |
+| Linus Torvalds | Bounded personal software, especially in languages or stacks outside his main expertise. | Understanding and responsibility for durable, maintained systems; generated code cannot make the system itself a black box. |
+| Simon Willison | Implementation, tests, and sometimes complete production changes without manually typing or reading every line. | Precise intent and verification. Source inspection varies with risk, but observed system behavior is never taken on trust. |
+| Addy Osmani | Implementation across the development lifecycle, with reusable skills enforcing the process. | Architecture, scope, the required evidence, final review, and accountability when automated checks miss something. |
+| Andrej Karpathy | Autonomous implementation and experimentation inside narrow loops. | The research objective, editable surface, time budget, evaluation metric, and the program that governs the loop. |
+| Mitchell Hashimoto | Small, high-confidence tasks, research, triage, and background implementation. | The hardest problems, review, attention management, and the rules and tools added to the harness after each failure. |
+| Armin Ronacher | More than 90% of implementation in some production systems, plus research, debugging, infrastructure, and review assistance. | Architecture, comprehension, taste, runtime behavior, and responsibility. He remains skeptical of unattended loops for durable code he cares about. |
+| Salvatore Sanfilippo | Increasingly, the implementation itself and—in many projects—line-by-line source review. | Ideas, mental models, design documents, performance reasoning, and quality assurance. He still reviews especially consequential Redis code. |
+| Birgitta Böckeler | Implementation and routine enforcement through types, linters, tests, security tools, dependency rules, and other sensors. | Risk assessment, exceptions, semantic quality, and judgment about whether the available sensors provide sufficient evidence. |
+| Steve Yegge | Implementation, decomposition, design, review, merging, and production roles across fleets of agents. | Product ambition and light-touch direction. Persistent project memory and specialized reviewer agents replace his own source inspection. He is the clearest advocate for replacing human code review with agent review. |
+| Anders Hejlsberg | AI assistance on locally checkable work; he favors asking AI to generate deterministic transformation tools instead of directly rewriting large codebases. | The cross-cutting compiler model and the decision to use deterministic machinery where direct generation would be unreliable. |
+| Martin Fowler | Describes professional agentic programming as extended repository manipulation, implementation, and test execution by agents; evidence about his own daily workflow is thinner. | Responsibility for what the software does and how it works, domain understanding, user collaboration, and evaluation through reviews, tests, and other sensors. |
