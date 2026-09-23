@@ -86,6 +86,8 @@ languages:
 
 params:
   enableInlineShortcodes: true
+  images:
+    - images/social/dufloth-card.png
   navbar:
     displayTitle: false
     displayLogo: true

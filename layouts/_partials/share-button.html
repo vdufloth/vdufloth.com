@@ -1,0 +1,21 @@
+{{- $label := (T "sharePage") | default "Share this page" -}}
+{{- $copiedLabel := (T "linkCopied") | default "Link copied" -}}
+{{- $errorLabel := (T "copyLinkFailed") | default "Could not copy link" -}}
+{{- $title := cond .IsHome .Site.Title .Title -}}
+
+<div class="hextra-share-wrapper">
+  <button
+    type="button"
+    class="hextra-share-button hx:cursor-pointer hx:rounded-md hx:p-2 hx:text-current hx:active:bg-gray-400/20"
+    aria-label="{{ $label }}"
+    title="{{ $label }}"
+    data-share-title="{{ $title }}"
+    data-share-url="{{ .Permalink }}"
+    data-copied-label="{{ $copiedLabel }}"
+    data-error-label="{{ $errorLabel }}"
+  >
+    {{- partial "utils/icon.html" (dict "name" "share" "attributes" "height=24") -}}
+    <span class="hx:sr-only">{{ $label }}</span>
+  </button>
+  <span class="hextra-share-feedback" role="status" aria-live="polite"></span>
+</div>

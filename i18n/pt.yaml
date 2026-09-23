@@ -14,3 +14,9 @@
   translation: "artigos"
 - id: noArticlesFound
   translation: "Nenhum artigo nessa categoria."
+- id: sharePage
+  translation: "Compartilhar esta página"
+- id: linkCopied
+  translation: "Link copiado"
+- id: copyLinkFailed
+  translation: "Não foi possível copiar o link"

@@ -53,3 +53,33 @@ html.dark .hextra-nav-container-blur { background-color: #171717e6 !important; }
 .hextra-nav-container nav button { color: var(--site-muted); }
 .hextra-nav-container nav > a:not(:has(img)):hover,
 .hextra-nav-container nav button:hover { color: var(--site-text); }
+
+.hextra-share-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.hextra-share-feedback {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 30;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--site-border);
+  border-radius: 0.375rem;
+  background: var(--site-bg);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  color: var(--site-text);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.25rem);
+  transition: opacity 150ms ease, transform 150ms ease;
+  white-space: nowrap;
+}
+
+.hextra-share-button[data-state] + .hextra-share-feedback {
+  opacity: 1;
+  transform: translateY(0);
+}

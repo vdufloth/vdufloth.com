@@ -36,7 +36,11 @@ Hextra ships the base templates via Hugo Modules; this repo overrides only what 
 - `layouts/partials/custom/head-end.html` — Hextra's documented extension point; loads IBM Plex Serif + Mono from Google Fonts and applies the serif-on-article design system globally (`article main .content` selectors, dark-mode variants, `.profile-avatar` styles used by the About pages).
 - `layouts/_partials/footer.html` — footer override.
 - `layouts/partials/favicons.html` — favicon set under `static/` (the `my-*` files are the active set).
+- `layouts/_partials/navbar.html` — navbar override that adds the share button while preserving Hextra's standard menu rendering.
+- `layouts/_partials/share-button.html` — localized Web Share control with a copy-link fallback handled in `assets/js/theme.js`.
 - `assets/css/custom.css` — additional global styles processed through Hugo Pipes.
+
+The default Open Graph/Twitter Card image is `static/images/social/dufloth-card.png`, configured through `params.images` in `hugo.yaml`. Individual pages can override it with an `images` array in front matter.
 
 When editing visual styling, decide whether the change is home-only (edit `home.html`'s inline `<style>`), article-wide (edit `head-end.html`), or truly global (edit `assets/css/custom.css`). Don't move home-only rules into the global sheet.
 
