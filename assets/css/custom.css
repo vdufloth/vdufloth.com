@@ -2,31 +2,43 @@
   font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 
-/* Paleta editorial baseada na escala Stone: papel quente no modo claro e
-   carvão no escuro, com contraste confortável para leitura prolongada. */
+/* Paleta editorial baseada na escala Neutral. Também remapeamos os tokens
+   gray-* do Hextra para remover o matiz azulado dos controles do tema. */
 :root {
-  --site-bg: #fafaf9;
-  --site-surface: #f5f5f4;
-  --site-heading: #292524;
-  --site-text: #44403c;
-  --site-muted: #57534e;
-  --site-border: #e7e5e4;
+  --hx-color-gray-50: #fafafa;
+  --hx-color-gray-100: #f5f5f5;
+  --hx-color-gray-200: #e5e5e5;
+  --hx-color-gray-300: #d4d4d4;
+  --hx-color-gray-400: #a3a3a3;
+  --hx-color-gray-500: #737373;
+  --hx-color-gray-600: #525252;
+  --hx-color-gray-700: #404040;
+  --hx-color-gray-800: #262626;
+  --hx-color-gray-900: #171717;
+  --hx-color-gray-950: #0a0a0a;
+
+  --site-bg: #fafafa;
+  --site-surface: #f5f5f5;
+  --site-heading: #111014;
+  --site-text: #404040;
+  --site-muted: #525252;
+  --site-border: #e5e5e5;
 }
 
 html.dark {
-  --site-bg: #1c1917;
-  --site-surface: #292524;
-  --site-heading: #f5f5f4;
-  --site-text: #d6d3d1;
-  --site-muted: #a8a29e;
-  --site-border: #44403c;
-  --hx-color-dark: #1c1917;
+  --site-bg: #171717;
+  --site-surface: #262626;
+  --site-heading: #f0eff2;
+  --site-text: #d4d4d4;
+  --site-muted: #a3a3a3;
+  --site-border: #404040;
+  --hx-color-dark: #171717;
 }
 
 html body,
 .hextra-sidebar-container { background-color: var(--site-bg); }
-html:not(.dark) .hextra-nav-container-blur { background-color: #fafaf9e6; }
-html.dark .hextra-nav-container-blur { background-color: #1c1917e6 !important; }
+html:not(.dark) .hextra-nav-container-blur { background-color: #fafafae6; }
+html.dark .hextra-nav-container-blur { background-color: #171717e6 !important; }
 
 /* Hextra hardcoda fundos brancos no rodapé e no bloco "Scroll to top" da TOC.
    O rodapé usa a superfície adjacente da mesma escala. */
@@ -36,8 +48,8 @@ html.dark .hextra-nav-container-blur { background-color: #1c1917e6 !important; }
   box-shadow: 0 -12px 16px var(--site-bg);
 }
 
-/* Ícones sociais (GitHub, LinkedIn) herdam currentColor branco do navbar,
-   pensado para um header escuro. No modo claro isso os deixa brancos sobre
-   fundo claro; aqui forçamos um tom escuro. */
-html:not(.dark) .hextra-nav-container nav > a:has(svg) { color: var(--site-heading); }
-html:not(.dark) .hextra-nav-container nav > a:has(svg):hover { color: #1c1917; }
+/* Mantém links, ícones e botões do navbar na mesma escala do conteúdo. */
+.hextra-nav-container nav > a:not(:has(img)),
+.hextra-nav-container nav button { color: var(--site-muted); }
+.hextra-nav-container nav > a:not(:has(img)):hover,
+.hextra-nav-container nav button:hover { color: var(--site-text); }
