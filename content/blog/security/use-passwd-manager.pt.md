@@ -7,8 +7,7 @@ categories:
 - Segurança
 - Tecnologia
 - Desenvolvimento de Software
-tags:
-- best
+tags: []
 ---
 
 A parte mais frágil em todo sistema raramente é algo técnico como criptografia ou problemas zero-day. Eles existem, mas são raros. A parte mais frágil é a sua própria senha de acesso, se não usar de boas práticas.

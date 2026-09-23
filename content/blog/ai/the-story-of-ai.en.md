@@ -8,6 +8,7 @@ categories:
 - Software Development
 tags:
 - ai
+- best
 ---
 
 Almost everyone met Artificial Intelligence recently, during the hype built around a few advances and product uses that led to an explosion in adoption and application.

@@ -8,6 +8,7 @@ categories:
 - Desenvolvimento de Software
 tags:
 - ai
+- best
 ---
 
 Quase todo mundo conheceu a Inteligência Artificial há pouco tempo, durante o hype criado em volta de alguns avanços e de usos em produto que levaram a uma explosão de adoção e aplicação.
