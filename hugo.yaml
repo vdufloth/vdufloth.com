@@ -90,10 +90,10 @@ params:
     displayTitle: false
     displayLogo: true
     logo:
-      path: images/dufloth-logo.svg
-      dark: images/dufloth-logo-dark.svg
-      width: 100
-      height: 50
+      path: images/dufloth-lockup-chumbo.svg
+      dark: images/dufloth-lockup-papel.svg
+      width: 150
+      height: 27
   
   footer:
     displayPoweredBy: false
