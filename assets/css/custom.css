@@ -2,24 +2,42 @@
   font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 
-/* Modo claro: fundo levemente acinzentado para reduzir glare.
-   Modo escuro mantém o #111 do Hextra. */
-html:not(.dark) body { background-color: #dbe2ea; }
-html:not(.dark) .hextra-sidebar-container { background-color: #dbe2ea; }
-html:not(.dark) .hextra-nav-container-blur { background-color: #dbe2eae6; }
+/* Paleta editorial baseada na escala Stone: papel quente no modo claro e
+   carvão no escuro, com contraste confortável para leitura prolongada. */
+:root {
+  --site-bg: #fafaf9;
+  --site-surface: #f5f5f4;
+  --site-heading: #292524;
+  --site-text: #44403c;
+  --site-muted: #57534e;
+  --site-border: #e7e5e4;
+}
+
+html.dark {
+  --site-bg: #1c1917;
+  --site-surface: #292524;
+  --site-heading: #f5f5f4;
+  --site-text: #d6d3d1;
+  --site-muted: #a8a29e;
+  --site-border: #44403c;
+  --hx-color-dark: #1c1917;
+}
+
+html body,
+.hextra-sidebar-container { background-color: var(--site-bg); }
+html:not(.dark) .hextra-nav-container-blur { background-color: #fafaf9e6; }
+html.dark .hextra-nav-container-blur { background-color: #1c1917e6 !important; }
 
 /* Hextra hardcoda fundos brancos no rodapé e no bloco "Scroll to top" da TOC.
-   No modo claro eles destoam do #dbe2ea; aqui os realinhamos.
-   O rodapé ganha um tom levemente mais escuro que o corpo, espelhando a
-   distinção sutil que o modo escuro faz (#111 do corpo vs. neutral-900 do rodapé). */
-html:not(.dark) .hextra-footer { background-color: #cdd5df; }
-html:not(.dark) .hextra-toc .hextra-scrollbar > div {
-  background-color: #dbe2ea;
-  box-shadow: 0 -12px 16px #dbe2ea;
+   O rodapé usa a superfície adjacente da mesma escala. */
+.hextra-footer { background-color: var(--site-surface); }
+.hextra-toc .hextra-scrollbar > div {
+  background-color: var(--site-bg);
+  box-shadow: 0 -12px 16px var(--site-bg);
 }
 
 /* Ícones sociais (GitHub, LinkedIn) herdam currentColor branco do navbar,
    pensado para um header escuro. No modo claro isso os deixa brancos sobre
    fundo claro; aqui forçamos um tom escuro. */
-html:not(.dark) .hextra-nav-container nav > a:has(svg) { color: #1f2937; }
-html:not(.dark) .hextra-nav-container nav > a:has(svg):hover { color: #111; }
+html:not(.dark) .hextra-nav-container nav > a:has(svg) { color: var(--site-heading); }
+html:not(.dark) .hextra-nav-container nav > a:has(svg):hover { color: #1c1917; }

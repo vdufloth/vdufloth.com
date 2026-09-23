@@ -6,13 +6,11 @@
   article main .content {
     font-family: 'IBM Plex Serif', Charter, Georgia, "Times New Roman", serif;
     line-height: 1.65;
-    color: #334155;
+    color: var(--site-text);
     max-width: 760px;
     margin-left: auto;
     margin-right: auto;
   }
-  html.dark article main .content { color: #cbd5e1; }
-
   article main > h1 {
     font-family: 'IBM Plex Serif', Charter, Georgia, serif;
     font-weight: 600;
@@ -20,6 +18,7 @@
     max-width: 760px;
     margin-left: auto;
     margin-right: auto;
+    color: var(--site-heading);
   }
 
   article main .content h1,
@@ -30,7 +29,10 @@
   article main .content h6 {
     font-family: 'IBM Plex Serif', Charter, Georgia, serif;
     font-weight: 600;
+    color: var(--site-heading);
   }
+
+  article main .content h2 { border-color: var(--site-border); }
 
   article main .content code,
   article main .content pre,
@@ -46,11 +48,8 @@
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.02em;
-    color: #64748b;
+    color: var(--site-muted);
   }
-  html.dark article main .content time,
-  html.dark article main .content .date,
-  html.dark article main .content .meta { color: #94a3b8; }
 
   article main .content .profile-avatar {
     width: 180px;
@@ -59,11 +58,11 @@
     object-fit: cover;
     display: block;
     margin: 0 auto 2rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--site-border);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   }
   html.dark article main .content .profile-avatar {
-    border-color: #334155;
+    border-color: var(--site-border);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 </style>

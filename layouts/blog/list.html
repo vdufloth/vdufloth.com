@@ -51,15 +51,15 @@
       font-family: 'IBM Plex Serif', Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
       font-size: 16px;
       line-height: 1.65;
-      color: #334155;
+      color: var(--site-text);
     }
-    html.dark .blog-mono { color: #cbd5e1; }
     .blog-mono h1 {
       font-family: 'IBM Plex Serif', Charter, Georgia, serif;
       font-weight: 600;
       font-size: 29px;
       letter-spacing: -0.005em;
       margin: 0 0 6px;
+      color: var(--site-heading);
     }
     .blog-mono .bio { margin-bottom: 28px; }
     .blog-mono .bio p { margin: 0 0 1em; }
@@ -82,37 +82,34 @@
       font-size: 12px;
       letter-spacing: 0.01em;
       padding: 4px 10px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #d6d3d1;
       border-radius: 999px;
-      color: #64748b;
+      color: var(--site-muted);
       background: transparent;
       cursor: pointer;
       transition: border-color 0.15s, color 0.15s, background-color 0.15s;
     }
-    .blog-mono .chip:hover { border-color: #94a3b8; color: #334155; }
+    .blog-mono .chip:hover { border-color: #a8a29e; color: var(--site-text); }
     .blog-mono .chip.is-active {
-      border-color: #334155;
-      background: #334155;
-      color: #f8fafc;
+      border-color: #292524;
+      background: #292524;
+      color: #fafaf9;
     }
-    html.dark .blog-mono .chip { border-color: #334155; color: #94a3b8; }
-    html.dark .blog-mono .chip:hover { border-color: #475569; color: #cbd5e1; }
+    html.dark .blog-mono .chip { border-color: #44403c; color: var(--site-muted); }
+    html.dark .blog-mono .chip:hover { border-color: #57534e; color: var(--site-text); }
     html.dark .blog-mono .chip.is-active {
-      border-color: #cbd5e1;
-      background: #cbd5e1;
-      color: #0f172a;
+      border-color: #d6d3d1;
+      background: #d6d3d1;
+      color: #1c1917;
     }
 
     .blog-mono .posts-section {
       margin-top: 32px;
       padding-top: 32px;
-      background-image: linear-gradient(to right, transparent 0, #cbd5e1 12%, #cbd5e1 88%, transparent 100%);
+      background-image: linear-gradient(to right, transparent 0, var(--site-border) 12%, var(--site-border) 88%, transparent 100%);
       background-size: 100% 1px;
       background-repeat: no-repeat;
       background-position: top;
-    }
-    html.dark .blog-mono .posts-section {
-      background-image: linear-gradient(to right, transparent 0, #334155 12%, #334155 88%, transparent 100%);
     }
     .blog-mono .posts-section h2 {
       font-family: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -120,10 +117,9 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #64748b;
+      color: var(--site-muted);
       margin: 0 0 16px;
     }
-    html.dark .blog-mono .posts-section h2 { color: #94a3b8; }
     .blog-mono .post-list { list-style: none; margin: 0; padding: 0; }
     .blog-mono .post-list li { padding: 8px 0; }
     .blog-mono .post-row { display: flex; align-items: baseline; }
@@ -131,12 +127,11 @@
       font-family: 'IBM Plex Mono', ui-monospace, monospace;
       font-size: 14px;
       letter-spacing: 0.02em;
-      color: #64748b;
+      color: var(--site-muted);
       margin-right: 12px;
       font-variant-numeric: tabular-nums;
       flex-shrink: 0;
     }
-    html.dark .blog-mono .post-list time { color: #94a3b8; }
     .blog-mono .post-cats {
       display: flex;
       flex-wrap: wrap;
@@ -149,13 +144,13 @@
       font-size: 10px;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #94a3b8;
+      color: var(--site-muted);
     }
     .blog-mono .post-cat::before { content: "#"; opacity: 0.6; }
     .blog-mono .empty {
       font-family: 'IBM Plex Mono', ui-monospace, monospace;
       font-size: 14px;
-      color: #64748b;
+      color: var(--site-muted);
     }
   </style>
 

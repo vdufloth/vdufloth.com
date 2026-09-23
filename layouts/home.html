@@ -37,9 +37,8 @@
       font-family: 'IBM Plex Serif', Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
       font-size: 16px;
       line-height: 1.65;
-      color: #334155;
+      color: var(--site-text);
     }
-    html.dark .home-mono { color: #cbd5e1; }
     .home-mono h1 {
       font-family: 'IBM Plex Serif', Charter, Georgia, serif;
       font-weight: 600;
@@ -47,6 +46,7 @@
       letter-spacing: -0.005em;
       margin: 0 auto 6px;
       text-align: center;
+      color: var(--site-heading);
     }
     .home-mono h1 .typewriter {
       display: inline-block;
@@ -94,12 +94,11 @@
       font-style: italic;
       font-weight: 400;
       font-size: 15px;
-      color: #64748b;
+      color: var(--site-muted);
       text-align: center;
       letter-spacing: 0.01em;
       margin: 0 0 32px;
     }
-    html.dark .home-mono .subtitle { color: #94a3b8; }
     .home-mono .bio { margin-bottom: 40px; }
     .home-mono .bio p { margin: 0 0 1em; }
     .home-mono .bio a,
@@ -114,13 +113,10 @@
     .home-mono .posts-section {
       margin-top: 40px;
       padding-top: 40px;
-      background-image: linear-gradient(to right, transparent 0, #cbd5e1 12%, #cbd5e1 88%, transparent 100%);
+      background-image: linear-gradient(to right, transparent 0, var(--site-border) 12%, var(--site-border) 88%, transparent 100%);
       background-size: 100% 1px;
       background-repeat: no-repeat;
       background-position: top;
-    }
-    html.dark .home-mono .posts-section {
-      background-image: linear-gradient(to right, transparent 0, #334155 12%, #334155 88%, transparent 100%);
     }
     .home-mono .posts-section h2 {
       font-family: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -128,20 +124,18 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #64748b;
+      color: var(--site-muted);
       margin: 0 0 16px;
     }
-    html.dark .home-mono .posts-section h2 { color: #94a3b8; }
     .home-mono .posts-section ul { list-style: none; margin: 0; padding: 0; }
     .home-mono .posts-section li { padding: 4px 0; }
     .home-mono .posts-section time {
       font-family: 'IBM Plex Mono', ui-monospace, monospace;
       font-size: 14px;
       letter-spacing: 0.02em;
-      color: #64748b;
+      color: var(--site-muted);
       margin-right: 12px;
       font-variant-numeric: tabular-nums;
     }
-    html.dark .home-mono .posts-section time { color: #94a3b8; }
   </style>
 {{ end }}
