@@ -1,0 +1,33 @@
+{{- /*
+  Returns the social preview (Open Graph / Twitter Card) image for a page.
+  Front matter `images` wins; otherwise a 1200x630 card is generated from
+  assets/images/social/card-base.png with the page title drawn on top.
+  Regenerate the base with scripts/social-card-base.sh.
+*/ -}}
+{{- $page := . -}}
+{{- $base := resources.Get "images/social/card-base.png" -}}
+{{- $serif := resources.Get "fonts/IBMPlexSerif-SemiBold.ttf" -}}
+{{- $mono := resources.Get "fonts/IBMPlexMono-Regular.ttf" -}}
+
+{{- $eyebrow := "" -}}
+{{- $title := $page.Title -}}
+{{- if $page.IsHome -}}
+  {{- $eyebrow = $page.Params.subtitle -}}
+  {{- $title = index (split $page.Plain ".") 0 -}}
+{{- else if $page.IsPage -}}
+  {{- with $page.Params.categories }}{{ $eyebrow = index . 0 }}{{ end -}}
+{{- end -}}
+{{- $title = $title | plainify | truncate 96 | htmlUnescape | string -}}
+{{- $titleSize := cond (gt (len $title) 60) 58 66 -}}
+
+{{- /* images.Text wraps at the canvas edge, so the title is drawn on its own
+     canvas sized to the text column (1040px + Hugo's wrap padding) and overlaid. */ -}}
+{{- $canvas := resources.Get "images/social/title-canvas.png" -}}
+{{- $titleLayer := $canvas.Filter (images.Text $title (dict "font" $serif "size" $titleSize "color" "#111014" "linespacing" 14 "x" 0 "y" 0)) -}}
+
+{{- $filters := slice
+  (images.Text ($eyebrow | upper) (dict "font" $mono "size" 22 "color" "#737373" "x" 80 "y" 176))
+  (images.Overlay $titleLayer 80 218)
+  (images.Text (strings.TrimSuffix "/" (replaceRE `^https?://` "" site.BaseURL)) (dict "font" $mono "size" 26 "color" "#404040" "x" 80 "y" 546))
+-}}
+{{- return $base.Filter $filters -}}

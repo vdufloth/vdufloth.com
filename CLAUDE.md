@@ -40,7 +40,7 @@ Hextra ships the base templates via Hugo Modules; this repo overrides only what 
 - `layouts/_partials/share-button.html` — localized Web Share control with a copy-link fallback handled in `assets/js/theme.js`.
 - `assets/css/custom.css` — additional global styles processed through Hugo Pipes.
 
-The default Open Graph/Twitter Card image is `static/images/social/dufloth-card.png`, configured through `params.images` in `hugo.yaml`. Individual pages can override it with an `images` array in front matter.
+Social preview images (Open Graph / Twitter Card) are generated per page at build time by `layouts/_partials/social-image.html`: it draws the page title (plus first category, or the home subtitle) onto `assets/images/social/card-base.png` with `images.Text`, using the IBM Plex TTFs in `assets/fonts/`. `layouts/_partials/opengraph.html` and `twitter_cards.html` consume it. Individual pages can override it with an `images` array in front matter. Regenerate the base PNG (logo, rules, background) with `scripts/social-card-base.sh`.
 
 When editing visual styling, decide whether the change is home-only (edit `home.html`'s inline `<style>`), article-wide (edit `head-end.html`), or truly global (edit `assets/css/custom.css`). Don't move home-only rules into the global sheet.
 
