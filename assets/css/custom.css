@@ -83,3 +83,14 @@ html.dark .hextra-nav-container-blur { background-color: #171717e6 !important; }
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Header no mobile: GitHub, LinkedIn, idioma e tema saem da barra (ficam no
+   menu hambúrguer), liberando espaço para o logo. 767px = breakpoint md do Hextra. */
+div.navbar-desktop-only { display: contents; }
+.hextra-nav-container nav > a:has(img) { flex-shrink: 0; }
+
+@media (max-width: 767px) {
+  .hextra-nav-container .navbar-desktop-only { display: none; }
+  .hextra-nav-container nav { padding-inline: 1rem; }
+  .hextra-nav-container nav > a:has(img) img { width: auto; height: 30px; }
+}

@@ -47,6 +47,13 @@ languages:
           params:
             type: theme-toggle
             label: false
+      sidebar:
+        - name: GitHub
+          weight: 1
+          url: "https://github.com/vdufloth"
+        - name: LinkedIn
+          weight: 2
+          url: "https://br.linkedin.com/in/vinicius-dufloth"
   en:
     languageName: "English"
     weight: 2
@@ -83,6 +90,13 @@ languages:
           weight: 7
           params:
             type: theme-toggle
+      sidebar:
+        - name: GitHub
+          weight: 1
+          url: "https://github.com/vdufloth"
+        - name: LinkedIn
+          weight: 2
+          url: "https://br.linkedin.com/in/vinicius-dufloth"
 
 params:
   enableInlineShortcodes: true
