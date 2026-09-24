@@ -24,11 +24,14 @@ languages:
         - name: Sobre Mim
           weight: 2
           url: /pt/about
+          params:
+            mobile: true
         - name: GitHub
           weight: 3
           url: "https://github.com/vdufloth"
           params:
             icon: github
+            mobile: true
         - name: LinkedIn
           weight: 4
           url: "https://br.linkedin.com/in/vinicius-dufloth"
@@ -48,11 +51,8 @@ languages:
             type: theme-toggle
             label: false
       sidebar:
-        - name: GitHub
-          weight: 1
-          url: "https://github.com/vdufloth"
         - name: LinkedIn
-          weight: 2
+          weight: 1
           url: "https://br.linkedin.com/in/vinicius-dufloth"
   en:
     languageName: "English"
@@ -68,11 +68,14 @@ languages:
         - name: About
           url: /en/about
           weight: 2
+          params:
+            mobile: true
         - name: GitHub
           url: "https://github.com/vdufloth"
           weight: 3
           params:
             icon: github
+            mobile: true
         - name: LinkedIn
           weight: 4
           url: "https://br.linkedin.com/in/vinicius-dufloth"
@@ -91,11 +94,8 @@ languages:
           params:
             type: theme-toggle
       sidebar:
-        - name: GitHub
-          weight: 1
-          url: "https://github.com/vdufloth"
         - name: LinkedIn
-          weight: 2
+          weight: 1
           url: "https://br.linkedin.com/in/vinicius-dufloth"
 
 params:

@@ -39,13 +39,18 @@
           {{- partial "language-switch" (dict "context" $page "grow" false "hideLabel" (not .Params.label) "iconName" (.Params.icon | default "translate") "iconHeight" $iconHeight "location" "top" "class" "hx:p-2") -}}
           </div>
         {{- else if .Params.icon -}}
-          {{- /* Display icon menu item (desktop only; mobile reaches these via menus.sidebar) */ -}}
+          {{- /* Display icon menu item (desktop only unless `params.mobile`; the rest are in menus.sidebar) */ -}}
           {{- if not $link -}}{{ warnf "Icon menu item '%s' has no URL" .Name }}{{- end -}}
           {{- $rel := cond (eq .Params.icon "mastodon") "noreferrer me" "noreferrer" }}
-          <a class="navbar-desktop-only hx:p-2 hx:text-current" {{ if $external }}target="_blank" rel="{{ $rel }}"{{ end }} href="{{ $link }}" title="{{ or (T .Identifier) .Name | safeHTML }}">
+          <a class="{{ if not .Params.mobile }}navbar-desktop-only {{ end }}hx:p-2 hx:text-current" {{ if $external }}target="_blank" rel="{{ $rel }}"{{ end }} href="{{ $link }}" title="{{ or (T .Identifier) .Name | safeHTML }}">
             {{- partial "utils/icon.html" (dict "name" .Params.icon "attributes" (printf "height=%d" $iconHeight)) -}}
             <span class="hx:sr-only">{{ or (T .Identifier) .Name | safeHTML }}</span>
           </a>
+        {{- else if .Params.mobile -}}
+          {{- /* `params.mobile: true` keeps a text link visible below md (Hextra hides them). */ -}}
+          <div class="navbar-mobile-link">
+          {{- partial "navbar-link.html" (dict "currentPage" $currentPage "link" $link "external" $external "item" .) -}}
+          </div>
         {{- else -}}
           {{- partial "navbar-link.html" (dict "currentPage" $currentPage "link" $link "external" $external "item" .) -}}
         {{- end -}}

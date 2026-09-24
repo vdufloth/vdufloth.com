@@ -36,7 +36,7 @@ Hextra ships the base templates via Hugo Modules; this repo overrides only what 
 - `layouts/partials/custom/head-end.html` — Hextra's documented extension point; loads IBM Plex Serif + Mono from Google Fonts and applies the serif-on-article design system globally (`article main .content` selectors, dark-mode variants, `.profile-avatar` styles used by the About pages).
 - `layouts/_partials/footer.html` — footer override.
 - `layouts/partials/favicons.html` — favicon set under `static/` (the `my-*` files are the active set).
-- `layouts/_partials/navbar.html` — navbar override that adds the share button while preserving Hextra's standard menu rendering.
+- `layouts/_partials/navbar.html` — navbar override that adds the share button while preserving Hextra's standard menu rendering. Below the `md` breakpoint only the logo, share, hamburger and menu items with `params.mobile: true` (About, GitHub) stay in the bar; the rest live in the hamburger drawer (`menus.sidebar` holds LinkedIn).
 - `layouts/_partials/share-button.html` — localized Web Share control with a copy-link fallback handled in `assets/js/theme.js`.
 - `assets/css/custom.css` — additional global styles processed through Hugo Pipes.
 
