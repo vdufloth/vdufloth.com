@@ -23,11 +23,11 @@
 {{- /* images.Text wraps at the canvas edge, so the title is drawn on its own
      canvas sized to the text column (1040px + Hugo's wrap padding) and overlaid. */ -}}
 {{- $canvas := resources.Get "images/social/title-canvas.png" -}}
-{{- $titleLayer := $canvas.Filter (images.Text $title (dict "font" $serif "size" $titleSize "color" "#111014" "linespacing" 14 "x" 0 "y" 0)) -}}
+{{- $titleLayer := $canvas.Filter (images.Text $title (dict "font" $serif "size" $titleSize "color" "#f0eff2" "linespacing" 14 "x" 0 "y" 0)) -}}
 
 {{- $filters := slice
-  (images.Text ($eyebrow | upper) (dict "font" $mono "size" 22 "color" "#737373" "x" 80 "y" 176))
+  (images.Text ($eyebrow | upper) (dict "font" $mono "size" 22 "color" "#a3a3a3" "x" 80 "y" 176))
   (images.Overlay $titleLayer 80 218)
-  (images.Text (strings.TrimSuffix "/" (replaceRE `^https?://` "" site.BaseURL)) (dict "font" $mono "size" 26 "color" "#404040" "x" 80 "y" 546))
+  (images.Text (strings.TrimSuffix "/" (replaceRE `^https?://` "" site.BaseURL)) (dict "font" $mono "size" 26 "color" "#d4d4d4" "x" 80 "y" 546))
 -}}
 {{- return $base.Filter $filters -}}
