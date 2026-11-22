@@ -1,15 +1,16 @@
 ---
 name: review-article
-description: Review and (with approval) edit blog articles for EN/PT alignment, native-speaker fit per locale, four-lens audience reception, and AI-slop / LinkedIn phrasing leaks. Interactive approval gate before any edit. Trigger when user invokes /review-article with a path, stem, or directory.
-argument-hint: <path | stem | directory> [--diff] [--lens=peer|hm|founder|emp|all]
-allowed-tools: Read, Glob, Grep, Bash(git diff:*), Bash(git merge-base:*), Bash(rm:*), AskUserQuestion, Edit, Write
+description: Review and (with approval) edit blog articles for EN/PT alignment, native-speaker fit per locale, four-lens audience reception, and AI-slop / LinkedIn phrasing leaks. Interactive approval gate before any edit. Use when asked to review blog articles or when explicitly invoked with a path, stem, or directory.
+allowed-tools: Read, Glob, Grep, Bash(git diff:*), Bash(git merge-base:*), AskUserQuestion, Edit, Write
 ---
 
 # review-article
 
-Guided review of a blog post draft with an interactive approval gate. The skill scans, presents each finding (original / proposed / why), and edits the article only for findings the user explicitly accepts. The full decision log is printed inline to the chat as the skill's final output — no sidecar file is written, and any leftover `<stem>.review.md` from a previous run is removed.
+Guided review of a blog post draft with an interactive approval gate. The skill scans, presents each finding (original / proposed / why), and edits the article only for findings the user explicitly accepts. The full decision log is printed inline to the chat as the skill's final output — no sidecar file is written. Flag any leftover `<stem>.review.md` from a previous run for separate cleanup.
 
 ## Inputs
+
+Invoke with `/review-article` in Claude Code or `$review-article` in Codex.
 
 The user provides one of:
 - A single article file (e.g. `content/blog/foo.en.md` or `content/blog/foo.pt.md`).
@@ -105,51 +106,24 @@ After the scan, print a one-screen summary:
 by category: align=<n>, native-en=<n>, native-pt=<n>, lens-peer=<n>, lens-hm=<n>, lens-founder=<n>, lens-emp=<n>, slop-en=<n>, slop-pt=<n>, voice=<n>, diagram=<n>
 ```
 
-Then triage in **severity order (high → med → low)**, with this rule:
+Triage findings in severity order (high → med → low). Present each non-slop finding individually with its ID, file and line, exact original, proposed replacement, and rationale. Offer Accept, Keep original, and Skip / revisit, and let the user add a note.
 
-- **Non-slop findings** → one `AskUserQuestion` per finding:
+Group slop findings by locale and phrasing pattern. Show the same details for each hit. Use a multi-select prompt if available, or ask the user to reply with the IDs they accept. Wait for an explicit response before moving on. If a question tool is unavailable, present the choices in chat and wait for a reply.
 
-  ```
-  header:   "[F<n>] <category> · <file>:<line>"
-  question: "<why> — apply change?"
-  options:
-    Accept           preview: "<proposed>"
-    Keep original    preview: "<original>"
-    Skip / revisit   preview: "ORIGINAL:\n<original>\n\nPROPOSED:\n<proposed>"
-    (auto Other      → user types a note)
-  ```
-
-- **Slop findings** → one **multiSelect** `AskUserQuestion` per `(locale, slop-pattern)` pair. Options list every hit as `line <n>: "<snippet>"` with preview showing the proposed replacement or `delete`. Selected = Accept; unselected = Reject. The auto "Other" path allows a free-text note that applies to the batch.
-
-Record each decision in-memory as `decisions[F<n>] = { choice: accept|reject|skip|note, note?: string }`. A "Note" choice on a non-slop finding implies Reject + free-text note; a note on a slop batch attaches to the batch.
-
-If a finding's intent is ambiguous (could be translation issue or deliberate choice), ask via `AskUserQuestion` mid-scan before classifying — do not invent context.
+Record each decision as accept, reject, skip, or note, keyed by finding ID. Treat a note without explicit acceptance as keeping the original. If author intent is ambiguous, ask before classifying the finding.
 
 ## Phase D — Consolidated review & apply
 
-1. Print a diff preview grouped by file. Each accepted finding becomes one unified-diff hunk: `--- <file>` / `+++ <file>` / `@@ line <n> @@` / `- <original>` / `+ <proposed>`.
-2. Final gate:
-
-   ```
-   AskUserQuestion:
-     question: "Apply <K> edits across <files>?"
-     options:
-       Apply all
-       Cancel (no edits)
-       Apply but skip a subset   (auto Other → user lists F-ids to skip)
-   ```
-
-3. On Apply: run `Edit` per accepted finding.
-   - `old_string` = the finding's `original`.
-   - `new_string` = the finding's `proposed`. If `proposed == "delete"`, set `new_string` to the empty surrounding form that keeps the file well-formed (drop the line, collapse the bullet, etc.).
-   - If `old_string` is not unique in the file, expand the quote with one line of surrounding context and retry. Never fall back to a fuzzy match.
-4. On any Edit failure: stop the apply pass, report which finding failed and why, leave remaining edits unapplied, and print the `Applied` / `Pending` / `Failed` summary inline (do not write a file).
+1. Show a unified diff preview of the accepted changes, grouped by file.
+2. Ask whether to apply all previewed changes, cancel, or apply with selected IDs excluded. Wait for explicit confirmation before editing.
+3. Apply only the confirmed changes. Match the exact original text and add surrounding context if the match is ambiguous. For deletions, remove surrounding syntax or whitespace as needed to keep the article well-formed.
+4. If an edit fails, stop applying changes and report what was applied, what remains pending, and which finding failed.
 
 ## Phase E — Final summary (inline)
 
 Do not write any file. Print the decision log as the skill's last chat output, in the exact markdown shape below. The chat scrollback is the author's record; git history of the article files is the audit trail of what changed.
 
-Before printing the summary, check for a stale sidecar from a previous run and remove it: if `content/blog/<stem>.review.md` exists, delete it with `Bash(rm <path>)`. This keeps `content/` clean of any non-page markdown that would otherwise leak into Hugo's feed (any file under `content/blog/` without front matter is rendered as a ghost page with a `0001-01-01` zero-date).
+If a stale `<stem>.review.md` exists, report its path. Hugo can render it as a blog page. Ask for explicit approval before deleting it.
 
 ```markdown
 # Review — <stem> — <YYYY-MM-DD>
@@ -167,7 +141,7 @@ Before printing the summary, check for a stale sidecar from a previous run and r
 - F19 diagram foo.pt.md:88 — "mermaid block missing in PT" — note: "needs translator"
 
 ## Failed (if any)
-- F22 align foo.pt.md:301 — Edit failed: old_string not unique after context expansion
+- F22 align foo.pt.md:301 — original text remained ambiguous after adding context
 ```
 
 ## Constraints
@@ -176,8 +150,8 @@ Before printing the summary, check for a stale sidecar from a previous run and r
 - Quote the article exactly when flagging. `original` must match the file byte-for-byte; do not paraphrase.
 - Line numbers are mandatory on every finding.
 - Stub locale (<200 words) → flag and ask before applying the full review.
-- Ambiguous intent → ask via `AskUserQuestion`; do not guess.
+- Ambiguous intent → ask the author before proceeding.
 - Preserve the author's natural tone (terse, concrete, opinionated, dry, willing to admit uncertainty). Do not push toward a generic "professional" register.
 - Do not generate translations. Flag missing translations; the author writes them.
-- Do not write any file under `content/` other than the article files being edited. The decision log is inline-only; any pre-existing `<stem>.review.md` sidecar must be deleted, not refreshed.
+- Do not write any file under `content/` other than the article files being edited. Keep the decision log in chat.
 - Do not commit or push. The author commits manually.
